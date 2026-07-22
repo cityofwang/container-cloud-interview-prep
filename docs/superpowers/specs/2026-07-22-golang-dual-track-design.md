@@ -139,3 +139,4 @@ HTTP/Gin 或标准库、gRPC 点到为止、DB 连接与事务口述；够业务
 - 落地：方案 1（双轨题库 + 合面模拟）
 - 错题：混合复现 C；题源：国内真实面试场景
 - 招聘雷达：每周定期 + `扫岗位` 按需（见 spaced-review spec §5）
+- 能力评估与进阶解锁：见 `2026-07-22-assessment-and-unlock-gates-design.md`（L3 前不加谈薪/故事等进阶）
