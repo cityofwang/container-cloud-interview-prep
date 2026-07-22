@@ -4,6 +4,7 @@
 - 状态：待用户确认 spec 后进入实现计划
 - 仓库：`~/Projects/container-cloud-interview-prep`
 - 关联：在既有容器云面次闯关之上，增加 Golang 双轨 + 合面模拟
+- 配套增强：`docs/superpowers/specs/2026-07-22-spaced-review-and-china-sources-design.md`（错题遗忘曲线复现 + 国内真实题源；全仓共用）
 
 ## 1. 背景与目标
 
@@ -120,7 +121,15 @@ HTTP/Gin 或标准库、gRPC 点到为止、DB 连接与事务口述；够业务
 - 中间件源码级深挖（如 etcd Raft），除非摸底显示明显偏强
 - 一次性堆大规模 Go 题海（如 200 题）
 
-## 9. 范围确认
+## 9. 错题复现与题源（继承全仓增强 spec）
+
+- 摸底「不会/半会」与模拟低分题写入 `review/wrong-book.md`
+- 合面额外抽 2～4 道错题复现；满 3/7 天无模拟则开 `错题回炉`
+- 新题遵守国内真实题源规则（ACK/混部/大厂 Go 高频等）
+
+详见：`2026-07-22-spaced-review-and-china-sources-design.md`
+
+## 10. 范围确认
 
 已确认：
 
@@ -128,3 +137,4 @@ HTTP/Gin 或标准库、gRPC 点到为止、DB 连接与事务口述；够业务
 - 水平：A～B + 先摸底
 - 节奏：并行 A + 合面 D
 - 落地：方案 1（双轨题库 + 合面模拟）
+- 错题：混合复现 C；题源：国内真实面试场景
