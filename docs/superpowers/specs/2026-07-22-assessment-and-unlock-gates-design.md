@@ -1,7 +1,7 @@
 # 能力评估体系 + 进阶模块解锁准则
 
 - 日期：2026-07-22
-- 状态：待用户确认（与 Go 双轨、错题/题源/雷达 spec 一并确认）
+- 状态：已确认；实现见 plans/2026-07-22-golang-dual-track-review-infra.md
 - 适用范围：全仓训练
 - 关联：
   - `2026-07-21-container-cloud-interview-prep-design.md`

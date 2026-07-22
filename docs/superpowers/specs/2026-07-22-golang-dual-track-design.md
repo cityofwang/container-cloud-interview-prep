@@ -1,7 +1,7 @@
 # 云原生 Go 双轨训练设计
 
 - 日期：2026-07-22
-- 状态：待用户确认 spec 后进入实现计划
+- 状态：已确认；实现见 plans/2026-07-22-golang-dual-track-review-infra.md
 - 仓库：`~/Projects/container-cloud-interview-prep`
 - 关联：在既有容器云面次闯关之上，增加 Golang 双轨 + 合面模拟
 - 配套增强：`docs/superpowers/specs/2026-07-22-spaced-review-and-china-sources-design.md`（错题遗忘曲线复现 + 国内真实题源；全仓共用）

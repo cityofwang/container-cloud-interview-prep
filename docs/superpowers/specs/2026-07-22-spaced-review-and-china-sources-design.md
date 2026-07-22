@@ -1,7 +1,7 @@
 # 训练增强：错题遗忘曲线 + 国内真实题源 + 招聘市场雷达
 
 - 日期：2026-07-22
-- 状态：待用户确认（与 Go 双轨 spec 一并确认）
+- 状态：已确认；实现见 plans/2026-07-22-golang-dual-track-review-infra.md
 - 适用范围：容器云面次线 + Go 双轨 + 合面模拟（全仓共用）
 - 关联：
   - `docs/superpowers/specs/2026-07-21-container-cloud-interview-prep-design.md`
