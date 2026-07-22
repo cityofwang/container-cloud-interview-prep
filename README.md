@@ -32,7 +32,8 @@
 - 每面四步：开卷题库 → 闭卷模拟 → 复盘补洞 → 过关检查
 
 作答写法见 `00-profile/ANSWERING.md`；能力雷达见 `00-profile/ASSESSMENT.md`；周末包说明见 `review/weekend/README.md`。  
-**新对话续聊**：先读根目录 `CONTINUITY.md`（可复制其中的开场模板）。
+**新对话续聊**：先读根目录 `CONTINUITY.md`（可复制其中的开场模板）。  
+纠偏口令：`请严格按 CONTINUITY.md 与 docs/superpowers/specs/ 下已确认设计执行。`
 
 ## 目录
 

@@ -3,12 +3,29 @@
 > 上下文满了就开新聊天。进度以本仓库为准，不依赖旧对话记忆。  
 > 每次训练结束：更新本文件「当前快照」+ `README` 进度板 + 错题本/评估（如有变更）。
 
+## 稳定性与准确性（铁律）
+
+助手在新对话中必须遵守：
+
+1. **请严格按 `CONTINUITY.md` 与 `docs/superpowers/specs/` 下已确认设计执行。**  
+2. 打分、过关、周末/平日时间盒、错题回炉、岗位雷达、能力档 L1–L5、进阶锁定、国内题源、合面配比 —— 一律以仓库文件为准，不以「好像聊过」为准。  
+3. 不确定学员进度时：先读本文件快照 + `README` + `ASSESSMENT.md` + `wrong-book.md`，再开口令对应动作。  
+4. 不编造经历、不擅自解锁 E1–E5、不一次堆全量新题、不把平日变成大课。  
+5. 若与学员口头新约定冲突：先问一句确认，再改仓库（改完才算生效）。
+
 ## 新对话开场（复制发给助手）
 
 ```text
 继续容器云+Go面试训练。仓库：container-cloud-interview-prep。
+请严格按 CONTINUITY.md 与 docs/superpowers/specs/ 下已确认设计执行。
 请先读 CONTINUITY.md，再按需要读 README.md、00-profile/ASSESSMENT.md、review/wrong-book.md。
 今天口令：<周末开练 | 开始 Go 摸底 | 错题回炉 | 我有空 30分钟 | …>
+```
+
+若助手跑偏，单独再发一句：
+
+```text
+请严格按 CONTINUITY.md 与 docs/superpowers/specs/ 下已确认设计执行。
 ```
 
 ## 我们在干什么
@@ -39,6 +56,7 @@
 3. 不会的题入库 `review/wrong-book.md`；摸底后填 `RESULT.md` 与 `ASSESSMENT.md`  
 4. 不编造学员没做过的项目；不主动展开未解锁进阶（谈薪/压力面等）  
 5. 结束时更新本文件「当前快照」与 `README` 进度板  
+6. 打分与评价必须对照量尺与评估 spec，避免随口打分  
 
 ## 关键路径
 
