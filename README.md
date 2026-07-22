@@ -34,7 +34,7 @@
 - `00-profile/` 背景、故事卡、作答写法、能力评估
 - `01-round1/` … `04-round4/` 各面题库
 - `05-coding-line/` 过线编码（Shell 等）
-- `06-golang/` Go 双轨（摸底/运转/编码）
+- `06-golang/` Go 双轨（摸底/小节/编码）
 - `review/` 错题本与岗位雷达
 - `mocks/` 模拟记录
 - `docs/superpowers/` 设计与计划
