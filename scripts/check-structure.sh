@@ -11,6 +11,7 @@ require() {
   fi
 }
 require "README.md"
+require "CONTINUITY.md"
 require "00-profile/PROFILE.md"
 require "00-profile/STORY-CARDS.md"
 require "00-profile/ANSWERING.md"

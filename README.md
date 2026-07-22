@@ -31,10 +31,12 @@
 - **周末**：`周末开练` → 按能力档组 3～4h 包（尽快冲 L3）
 - 每面四步：开卷题库 → 闭卷模拟 → 复盘补洞 → 过关检查
 
-作答写法见 `00-profile/ANSWERING.md`；能力雷达见 `00-profile/ASSESSMENT.md`；周末包说明见 `review/weekend/README.md`。
+作答写法见 `00-profile/ANSWERING.md`；能力雷达见 `00-profile/ASSESSMENT.md`；周末包说明见 `review/weekend/README.md`。  
+**新对话续聊**：先读根目录 `CONTINUITY.md`（可复制其中的开场模板）。
 
 ## 目录
 
+- `CONTINUITY.md` 新对话续聊一页纸（上下文满了用这个）
 - `00-profile/` 背景、故事卡、作答写法、能力评估
 - `01-round1/` … `04-round4/` 各面题库
 - `05-coding-line/` 过线编码（Shell 等）
