@@ -1,6 +1,9 @@
-# 招聘市场雷达
+# 招聘市场雷达（仅 JD / 岗位）
 
-操作说明见 `docs/superpowers/specs/2026-07-22-spaced-review-and-china-sources-design.md` §5。
+操作说明见 `docs/superpowers/specs/2026-07-22-spaced-review-and-china-sources-design.md` §5。  
+**本题源社区面经不在本目录** → 见 `review/question-sources/`（口令 `扫题源`）。
+
+口令权威表：`00-profile/COMMANDS.md`。
 
 ## 触发
 
@@ -28,6 +31,12 @@
 4. **题库缺口**
 5. **补充建议**
 6. **评估校准建议**（无则写「本周无需调整」）
+
+## 渠道边界
+
+- 优先：公开招聘页、官网社招、可访问 JD 摘要
+- 尽力：Boss 等（常有登录墙，做不到要写明）
+- 禁止：索要学员账号密码
 
 ## 落库纪律
 
