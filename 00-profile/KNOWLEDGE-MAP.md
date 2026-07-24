@@ -27,6 +27,7 @@
 | 云原生 Go | G3 | 事件自动处置防风暴 | 半会 | GO-D-09 |
 | 编码过线 | X1 | 小练习次数 | 未测 | `06-golang/05-coding/` |
 | 表达 | X2 | 四段式 / 排障 / STAR | 进行中 | `ANSWERING.md` |
+| 流程熟练度 | C1 | Pod 创建等关键路径 | 未测 | `PROCESS-FLOWS.md`；R1-Q17 |
 
 ## B 薄册（够用）
 

@@ -239,3 +239,22 @@
 **题源标签：** 国内高频  
 **对比点：** 控制面故障 vs 数据面仍运行  
 **挂钩提示：** 无强故事则讲边界
+
+## R1-Q17 Pod 创建端到端流程
+
+**题目：** 从 `kubectl apply` 一个 Deployment/Pod 开始，到容器 Running/Ready，控制面与节点上大致经历哪些步骤？某步失败你怎么定位？
+
+**参考答法要点（节拍）：**
+1. apiserver 鉴权/准入 → 写入 etcd  
+2. 控制器（如 Deployment→ReplicaSet）调谐出 Pod 对象  
+3. scheduler 监视未绑定 Pod → 选节点 → 写 `spec.nodeName`（绑定）  
+4. kubelet 感知到本节点 Pod → 拉镜像 → CRI 创建沙箱/容器  
+5. 网络（CNI）、存储（CSI 若需要）→ 启动 → 探针 → Ready →（Service 则进 Endpoints）  
+6. 失败定位：Pending（调度/资源/亲和/PVC）→ ImagePull → CrashLoop（日志/探针）→ NotReady（就绪探针/依赖）
+
+**追问：** 控制面短暂不可用时，已在跑的业务 Pod 一般怎样？新变更呢？
+
+**对比点：** 控制面调谐 vs 数据面仍运行；Running vs Ready  
+**题源标签：** 国内高频 · 流程熟练度（选人标准「流程能串」）  
+**举一反三：** 会这条 → 应能迁移讲滚动、驱逐、挂载失败卡点  
+**挂钩提示：** S5

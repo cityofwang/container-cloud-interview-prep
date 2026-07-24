@@ -17,7 +17,8 @@
 7. 口令以 `00-profile/COMMANDS.md` 为准；新增口令未写入该表 = 未落地。  
 8. **操盘规则（你上场、我操盘）**：见下方专节；学员不必背口令。  
 9. **对比/选型思维贯穿始终**：见 `00-profile/MINDSETS.md`；开题默认带对比点。  
-10. **模拟/对练按「考察思维」打分与追问**：见 `MINDSETS.md` §3；公平量尺、证据优先、分层探测。
+10. **模拟/对练按「考察思维」打分与追问**：见 `MINDSETS.md` §3；公平量尺、证据优先、分层探测。  
+11. **选人标准**：按「愿不愿意一起值班干活」选（`MINDSETS.md` §3.5）；流程熟练度见 `PROCESS-FLOWS.md`；场景题举一反三不背孤题。
 
 ## 操盘规则（你上场、我操盘）
 
@@ -140,7 +141,8 @@
 | **口令权威表** | `00-profile/COMMANDS.md` |
 | 进度板 | `README.md` |
 | 阶段能力画像 | `00-profile/STAGE-PORTRAITS.md` |
-| 思维清单 | `00-profile/MINDSETS.md` |
+| 思维清单 / 选人标准 | `00-profile/MINDSETS.md` |
+| K8s 流程熟练度 | `00-profile/PROCESS-FLOWS.md` |
 | 评估 + 观察维 | `00-profile/ASSESSMENT.md` |
 | 知识图谱 | `00-profile/KNOWLEDGE-MAP.md` |
 | L3 排期 | `review/roadmap/L3-plan.md` |
