@@ -116,6 +116,7 @@
 | 容器一面 | 题库已就绪，待开卷 |
 | 错题未巩固 | 9（GO-D-01/03/04/05/06/07/08/09/10） |
 | 学习笔记 | 已开三篇：error / interface-nil / goroutine-leak |
+| 题库补强 | 2026-07-24：一面+6；concurrency 预置；二面预习；场景线（含一亿邮件） |
 | 阶段画像 / 口令表 / 思维清单 | 已落地 STAGE-PORTRAITS / COMMANDS / MINDSETS |
 | 题源雷达 | 已有 `2026-07-24.md`（首轮）；补题待确认 |
 | 观察维 | O1–O7 已登记，不加权 |
@@ -144,6 +145,7 @@
 | 知识图谱 | `00-profile/KNOWLEDGE-MAP.md` |
 | L3 排期 | `review/roadmap/L3-plan.md` |
 | 学习笔记 | `notes/` |
+| 场景过线 | `05-scenario-line/`（一亿邮件等） |
 | 错题 | `review/wrong-book.md` |
 | 岗位雷达（JD） | `review/job-market/` |
 | 题源雷达（牛客/笔记） | `review/question-sources/` |

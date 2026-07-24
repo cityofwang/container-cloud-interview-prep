@@ -141,3 +141,101 @@
 **追问：** 事件风暴时怎么保证自动化不伤集群？
 
 **挂钩提示：** S3、S5（主故事题）
+
+## R1-Q11 Service 不通分层排查
+
+**题目：** Pod Running 但访问 Service 不通，你怎么分层查？kube-proxy 的 iptables 与 ipvs 你怎么对比口述？
+
+**参考答法要点：**
+- 分层：客户端 → Service/Endpoints(EndpointSlice) → 网络策略/CNI → Pod 端口/探针 → 节点 kube-proxy
+- 先看 selector 是否命中、Endpoints 是否为空、目标端口是否 listen
+- iptables：规则链转发，规则多时更新成本高；ipvs：内核负载均衡，大规模 Service 时常更稳（点到选型即可）
+- 对比：先证「有没有后端」再怀疑 CNI；不先猜内核
+
+**追问：** Endpoints 有地址仍不通，下一步看什么？
+
+**题源标签：** 题源雷达 2026-07-24 · 国内高频  
+**对比点：** iptables vs ipvs；连通性 vs CNI 原理层  
+**挂钩提示：** S5
+
+## R1-Q12 滚动更新 Ready 与灰度选型
+
+**题目：** Deployment 滚动时如何判断新 Pod「可以接流量」？单 Deployment 暂停滚动 vs 双 Deployment + 流量切分，怎么选？
+
+**参考答法要点：**
+- Ready ≈ readiness 通过 +（可选）可用副本满足 maxUnavailable/maxSurge 策略
+- controller 看 Pod conditions（Ready）再缩老副本；镜像 Running≠业务 Ready
+- 单 Deployment 暂停：实现简单、粒度粗、回滚靠 rollout undo
+- 双 Deployment + Ingress/Mesh 权重：可精确比例、需两套负载与观测；成本更高
+- 选型：小流量/运维向常用前者；要精细灰度与多版本并存倾向后者（或平台发布系统）
+
+**追问：** readiness 打到依赖抖动的存储会怎样？
+
+**题源标签：** 牛客面经高频变形 · 对比选型  
+**对比点：** 暂停滚动 vs 流量切分；Running vs Ready  
+**挂钩提示：** S5
+
+## R1-Q13 List-Watch 直觉
+
+**题目：** 控制器/运维组件如何感知集群变化？List-Watch 断线了怎么办？（直觉即可）
+
+**参考答法要点：**
+- List 全量打底 + Watch 增量；本地 informer cache 对外提供读
+- 断线：重新 List 或从 resourceVersion 续 Watch；要处理过期/409 与全量重建
+- 与「轮询 apiserver」对比：Watch 省流量、近实时；要处理好连接与退避
+- 运维自动化若自己 Watch 事件：同样要限流/去重，避免风暴
+
+**追问：** 为什么不能只 Watch 从不 List？
+
+**题源标签：** 题源雷达 · 云原生 Go 边界  
+**对比点：** List-Watch vs 裸轮询  
+**挂钩提示：** S3
+
+## R1-Q14 污点、容忍与亲和（一面点到）
+
+**题目：** Taint/Toleration 和 Affinity 分别解决什么？和「把负载隔开」有什么关系？
+
+**参考答法要点：**
+- Taint：节点排斥；Toleration：Pod 声明可忍；常用于专用节点、问题节点隔离
+- Affinity/AntiAffinity：吸引/排斥到某类节点或相对其他 Pod
+- 混部直觉：干扰敏感负载可用污点+容忍放到「在线池」，或反亲和打散
+- 一面不要求背全语法，要说清「排斥 vs 吸引」与可观测验证（是否调度到预期节点）
+
+**追问：** 只靠 request 限制够不够隔离干扰？
+
+**题源标签：** 面经变形 · 挂钩混部  
+**对比点：** 污点排斥 vs 亲和吸引 vs 纯资源配额  
+**挂钩提示：** S1、S2
+
+## R1-Q15 CNI 现象级
+
+**题目：** Pod 间不通、DNS 失败，你按什么顺序排？说到 CNI 哪一层就停？
+
+**参考答法要点：**
+- 顺序：同节点 localhost/同 Pod → 跨 Pod IP → Service/DNS → 网络策略 → 节点路由/CNI
+- 现象：ip 通不通、dns 解析、网络策略 deny、网卡/veth 是否在
+- 边界诚实：托管集群常不改 CNI 插件；能定位到「策略/插件/底层网络」哪一层即可
+- 对比：先证连通再谈 Calico/Flannel 细节（L3 不装懂源码）
+
+**追问：** NetworkPolicy 默认 deny 时如何验证？
+
+**题源标签：** 题源雷达 · 学员弱项补洞  
+**对比点：** 连通性排查 vs CNI 实现细节  
+**挂钩提示：** S5
+
+## R1-Q16 控制面组件一句话 + 边界
+
+**题目：** apiserver / etcd / scheduler / controller-manager 各一句话职责；你没深挖源码时怎么答边界？
+
+**参考答法要点：**
+- apiserver：唯一入口、鉴权、写入 etcd  
+- etcd：集群状态存储  
+- scheduler：绑节点  
+- controller-manager：调谐期望与实际  
+- 边界：托管集群少直接运维 etcd；排障多用事件/组件日志/控制面可用性指标；不懂处给学习路径
+
+**追问：** 控制面挂了，已有业务 Pod 还跑吗？（一般还跑，但不能变更）
+
+**题源标签：** 国内高频  
+**对比点：** 控制面故障 vs 数据面仍运行  
+**挂钩提示：** 无强故事则讲边界

@@ -18,8 +18,11 @@
 | Go 基础 | G1 | interface nil | 半会 | [笔记](../notes/A-target/go-interface-nil.md) · GO-D-04 |
 | Go 基础 | G1 | defer | 半会 | GO-D-05 |
 | Go 并发 | G2 | goroutine 泄漏 | 半会 | [笔记](../notes/A-target/go-goroutine-leak.md) · GO-D-06 |
-| Go 并发 | G2 | channel | 不会 | GO-D-07（待笔记） |
-| Go 并发 | G2 | context | 不会 | GO-D-08（待笔记） |
+| Go 并发 | G2 | channel | 不会 | GO-D-07；预置 `06-golang/02-concurrency/QUESTIONS.md` GO-C-02 |
+| Go 并发 | G2 | context | 不会 | GO-D-08；GO-C-03 |
+| Go 并发 | G2 | GMP 口述 | 未测 | GO-C-01（预置，摸底后开） |
+| 场景过线 | X1/综合 | 一亿邮件/限流/护 apiserver | 未测 | `05-scenario-line/` SCE-01…04 |
+| 容器一面补 | C1 | Service 排查/灰度选型/CNI 现象等 | 未测 | R1-Q11…16 |
 | Go 并发 | G2 | 超时取消并发计数 | 半会 | GO-D-10 |
 | 云原生 Go | G3 | 事件自动处置防风暴 | 半会 | GO-D-09 |
 | 编码过线 | X1 | 小练习次数 | 未测 | `06-golang/05-coding/` |
