@@ -24,7 +24,7 @@
 | 场景过线 | X1/综合 | 一亿邮件/限流/护 apiserver | 未测 | `05-scenario-line/` SCE-01…04 |
 | 容器一面补 | C1 | Service 排查/灰度选型/CNI 现象等 | 未测 | R1-Q11…16 |
 | Go 并发 | G2 | 超时取消并发计数 | 半会 | GO-D-10 |
-| 云原生 Go | G3 | 事件自动处置防风暴 | 半会 | GO-D-09 |
+| 云原生 Go | G3 | 事件自动处置防风暴 | 半会 | GO-D-09；[设计笔记](../notes/A-target/k8s-event-auto-remediation-design.md) |
 | 编码过线 | X1 | 小练习次数 | 未测 | `06-golang/05-coding/` |
 | 表达 | X2 | 四段式 / 排障 / STAR | 进行中 | `ANSWERING.md` |
 | 流程熟练度 | C1 | Pod 创建等关键路径 | 未测 | `PROCESS-FLOWS.md`；R1-Q17 |
