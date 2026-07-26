@@ -9,7 +9,7 @@
 
 | 域 | 维 | 知识点 | 状态 | 笔记 / 错题 |
 |----|----|--------|------|-------------|
-| 容器/K8s 基础 | C1 | Pod/Deploy/Svc、探针、QoS、滚动更新 | 未测 | `01-round1/` |
+| 容器/K8s 基础 | C1 | Service/Ingress | 不会→补洞中 | R1-Q04；[笔记](../notes/A-target/k8s-service-ingress.md) |
 | 排障与可观测 | C2 | CrashLoop/OOM/NotReady 路径、监控告警 | 未测 | |
 | 混部/cgroup/CSI | C3 | 混部干扰与隔离、cgroup、CSI 部署坑 | 未测（经历强，口述待测） | 故事卡 |
 | Go 基础 | G1 | slice/append | 半会 | GO-D-01 |
