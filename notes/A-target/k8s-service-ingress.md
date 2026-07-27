@@ -1,195 +1,311 @@
-# K8s Service 与 Ingress（小白内化版）
+# K8s Service / Ingress（机制 + 关键旋钮版）
 
-- 维：C1｜题：R1-Q04 / R1-Q11｜状态：一面不会→补洞中
+- 维：C1｜题：R1-Q04 / R1-Q11｜状态：一面不会→补洞中（重写：包路径 + 关键字段）
 
-## 1. 为什么需要 Service？
-
-Pod IP **会变**（重建就换）。业务不能写死 `10.0.1.23:8080`。  
-Service 提供：
-
-1. **稳定虚拟入口**（ClusterIP 或对外暴露方式）  
-2. **用 label 找到当前该接流量的 Pod**（Endpoints）  
-3. **转发**（kube-proxy 等）
+> 面试要能说清两件事：  
+> 1）**控制面**怎么把 Service 绑到 Pod 列表；  
+> 2）**数据面**一个包从谁发到谁（不经过 Ingress 的路径也要会画）。
 
 ---
 
-## 2. 总览图
+## 0. 先纠正三个常见错觉
+
+| 错觉 | 正解 |
+|------|------|
+| 「要先访问 kube-proxy 进程，再去 ClusterIP」 | kube-proxy 多半是**改节点上的转发规则**（iptables/ipvs）。请求包**不**先 HTTP 进 kube-proxy 再转发；包直接对着 ClusterIP 发出去，**内核规则**改目的地址到 Pod IP |
+| 「集群内互调也要走 Ingress」 | **不要。** 东西向：DNS/ClusterIP →（节点转发）→ 对端 Pod。Ingress 是南北向 HTTP 入口 |
+| 「ClusterIP 对应一个 label」 | 一对多：一个 Service（一个 ClusterIP）→ `selector` 匹配到的**一批** Pod → Endpoints 里一串 IP |
+
+---
+
+## 1. 对象关系（一张总图）
 
 ```mermaid
 flowchart TB
-  subgraph outside [集群外]
-    User[用户 / 浏览器 / 其它系统]
+  subgraph ctrl [控制面：谁连谁]
+    Svc[Service<br/>clusterIP + selector + ports]
+    EP[Endpoints / EndpointSlice<br/>ready PodIP:targetPort 列表]
+    Pods[Pods<br/>metadata.labels]
+    Svc -->|selector 匹配 labels| Pods
+    Svc -->|控制面写入| EP
   end
-  subgraph edge [入口层可选]
-    LB[云 LoadBalancer]
-    NP[NodePort 节点IP:端口]
-    Ing[Ingress Controller]
+
+  subgraph data [数据面：包怎么走]
+    Client[客户端 Pod/外部]
+    VIP[目的地址 = ClusterIP:port]
+    Rules[节点内核规则<br/>kube-proxy 维护]
+    Backend[某个 PodIP:targetPort]
+    Client --> VIP --> Rules --> Backend
   end
-  subgraph svc [Service 层]
-    CIP[ClusterIP Service<br/>稳定虚 IP]
-  end
-  subgraph pods [工作负载]
-    P1[Pod A]
-    P2[Pod B]
-    P3[Pod C]
-  end
-  User --> LB
-  User --> NP
-  User --> Ing
-  LB --> CIP
-  NP --> CIP
-  Ing --> CIP
-  CIP --> P1
-  CIP --> P2
-  CIP --> P3
+
+  EP -.->|kube-proxy 看着 EP 更新规则| Rules
 ```
 
-记法：**外面怎么进门可以变，进门后几乎都要落到某个 Service，再转到 Pod。**
+**对应关系（钉死）：**
+
+```text
+Service.name + namespace
+  ├─ clusterIP（虚 IP，一个 Service 通常一个）
+  ├─ ports[]：port（对外服务端口）→ targetPort（容器端口）
+  ├─ selector：{ app: orders }     ←── 匹配 Pod.labels
+  └─ 派生出 Endpoints：
+        [10.0.1.11:8080, 10.0.1.12:8080, ...]   ←── 当前 Ready 的后端
+```
+
+不是「ClusterIP ↔ 单个 label」，而是：
+
+**ClusterIP(+port) ↔ Endpoints 集合**；Endpoints 由 **selector↔labels** 算出来。
 
 ---
 
-## 3. 三种 Service：包怎么走（案例）
+## 2. 关键旋钮（YAML 里真正要盯的字段）
 
-### 案例 A：集群内调用（东西向）——ClusterIP
+### 2.1 Service（最重要）
 
-场景：支付 Pod 调订单 API。
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: orders
+  namespace: default
+spec:
+  type: ClusterIP          # 旋钮1：ClusterIP | NodePort | LoadBalancer
+  clusterIP: 10.96.10.20   # 旋钮2：通常系统分配；虚 IP，不是某网卡 IP
+  selector:                # 旋钮3：选哪些 Pod
+    app: orders
+  ports:                   # 旋钮4：端口映射
+    - name: http
+      port: 80             # 客户端连 Service 时用的端口
+      targetPort: 8080     # 真正打到容器的端口（可以是名字）
+      # nodePort: 30080    # 仅 NodePort/LB 时出现（30000–32767）
+```
+
+| 旋钮 | 含义 | 排障时 |
+|------|------|--------|
+| `type` | 暴露方式 | 外网不通先看是不是只建了 ClusterIP |
+| `clusterIP` | 稳定虚 IP | DNS 解析结果通常就是它 |
+| `selector` | 选 Pod | 和 Deployment 的 `template.labels` 必须对上 |
+| `port` | 服务端口 | curl 的是这个端口，不是随便猜 |
+| `targetPort` | 容器端口 | 和容器 `containerPort`/实际监听一致 |
+| `nodePort` | 节点端口 | NodePort/LB 对外时用 |
+
+配套查：
+
+```bash
+kubectl get svc orders -o wide
+kubectl get endpoints orders          # 或 endpointslice
+kubectl get pods -l app=orders -o wide
+```
+
+### 2.2 Pod 侧要对上的旋钮
+
+```yaml
+metadata:
+  labels:
+    app: orders          # 必须被 Service.selector 命中
+spec:
+  containers:
+    - ports:
+        - containerPort: 8080
+  readinessProbe: ...    # 失败 → 通常不进 Endpoints → Service 不给它流量
+```
+
+### 2.3 Ingress（规则对象，不是转发器本体）
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: shop
+spec:
+  ingressClassName: nginx     # 旋钮：哪个 Controller 认这笔规则
+  tls:
+    - hosts: [shop.example.com]
+      secretName: shop-tls    # TLS 常在这里终止
+  rules:
+    - host: shop.example.com  # 旋钮：域名
+      http:
+        paths:
+          - path: /api        # 旋钮：路径
+            pathType: Prefix
+            backend:
+              service:
+                name: orders  # 旋钮：后端仍是 Service 名
+                port:
+                  number: 80
+```
+
+**Ingress YAML 自己不转发包**；集群里要有 **Ingress Controller Pod**（如 nginx-ingress）在跑，它读规则、听 80/443，再去连后端 Service。
+
+---
+
+## 3. ClusterIP：是不是真 IP？为啥还用域名？
+
+### 3.1 ClusterIP 是真的「IP 地址」吗？
+
+- **是**：它是集群 `service-cluster-ip-range` 里分配出来的一个 **IP 地址**（如 `10.96.10.20`）。
+- **但不是**：某台机器网卡上配好的普通主机 IP。  
+  没有一块网卡「拥有」这个地址；靠各节点上的 **DNAT/IPVS 规则** 把「打到这个 VIP 的包」改写成「打到某个 Pod IP」。
+
+所以口述可以说：**「虚拟服务 IP（VIP），集群内可路由到，由 kube-proxy 规则落地。」**
+
+### 3.2 为啥业务常用域名而不是写死 ClusterIP？
+
+| | DNS 名 | 直接写 ClusterIP |
+|--|--------|------------------|
+| 例子 | `orders.default.svc.cluster.local` | `10.96.10.20` |
+| 优点 | 好记；换 Service 重建后名可不变 | 少一次解析 |
+| 缺点 | 多一步解析 | IP 可能变（删建 Service）；难读 |
+
+**调用时：** 域名 **解析成** ClusterIP，然后包的目的 IP 仍是 ClusterIP。  
+域名不是另一条转发通道，只是 **名字 → ClusterIP** 的电话簿。
+
+---
+
+## 4. 场景 A：Service A 里的 Pod 调 Service B（东西向）——逐步拆包
+
+设定：
+
+- PodA（支付）要调 orders  
+- Service `orders`：`clusterIP=10.96.10.20`，`port=80` → `targetPort=8080`  
+- 后端 PodB1/PodB2：`10.0.1.11:8080`、`10.0.1.12:8080`
+
+### 4.1 要不要走 Ingress？要不要「先去 kube-proxy 再去 ClusterIP」？
 
 ```text
-支付 Pod
-  → 解析订单 Service DNS：orders.default.svc.cluster.local
-  → 得到 ClusterIP（如 10.96.10.20）
-  → 发到 10.96.10.20:80
-  → 节点上的转发规则把包转到某个订单 Pod:8080
+❌ PodA → Ingress → Service B
+❌ PodA → kube-proxy 进程 → ClusterIP → PodB
+✅ PodA →（DNS 得到 ClusterIP）→ 发往 ClusterIP:80
+     → 本节点内核规则（kube-proxy 维护）DNAT
+     → PodB_IP:8080
 ```
+
+### 4.2 时序图（控制面 vs 数据面分开）
 
 ```mermaid
 sequenceDiagram
-  participant Pay as 支付 Pod
-  participant DNS as 集群 DNS
-  participant VIP as ClusterIP
-  participant Ord as 订单 Pod
-  Pay->>DNS: 查 orders 服务名
-  DNS-->>Pay: ClusterIP
-  Pay->>VIP: 请求 :80
-  Note over VIP: kube-proxy/IPVS 转发
-  VIP->>Ord: 转到真实 Pod IP:端口
+  autonumber
+  participant CM as 控制面
+  participant KP as kube-proxy各节点
+  participant A as PodA支付
+  participant DNS as CoreDNS
+  participant B as PodB订单
+
+  Note over CM: 早已完成：Service.selector→Endpoints
+  CM->>KP: Endpoints 变更时更新 iptables/ipvs
+
+  A->>DNS: 查 orders.default.svc.cluster.local
+  DNS-->>A: 10.96.10.20
+  A->>A: 发 TCP 到 10.96.10.20:80
+  Note over A,B: 包出网卡前/经宿主机时被规则改写目的地址
+  A->>B: 实际到达 10.0.1.11:8080（示例）
 ```
 
-**内化点：** ClusterIP **不是**某台机器网卡上的普通 IP，而是集群里的**虚拟服务地址**；真正收包的是 Pod。
-
----
-
-### 案例 B：临时从笔记本访问——NodePort
-
-场景：本地 `curl http://节点公网IP:30080`。
-
-```text
-你的电脑
-  → 节点 IP:30080（每台节点都开了这个端口）
-  → 转到对应 Service
-  → 再转到某 Pod
-```
+### 4.3 流程图（只画数据面）
 
 ```mermaid
 flowchart LR
-  Laptop[笔记本] -->|节点IP:30080| Node[任意 Worker 节点]
-  Node --> Svc[Service]
-  Svc --> Pod[后端 Pod]
+  A[PodA] -->|1 DNS| DNS[CoreDNS]
+  DNS -->|2 返回 ClusterIP| A
+  A -->|3 目的=10.96.10.20:80| HOST[PodA 所在节点内核规则]
+  HOST -->|4 DNAT 选一个 endpoint| B[PodB 10.0.1.11:8080]
 ```
 
-**内化点：**  
-- 方便调试，生产少当主入口（端口范围有限、要暴露节点、不好看）  
-- 打到**任意**节点的 NodePort，一般都能进（规则在各节点）
+**你要会说的一句：**  
+「客户端以为自己连的是 Service IP；节点规则在转发时把目的地址换成某个 Ready Pod IP。Endpoints 就是候选名单。」
 
 ---
 
-### 案例 C：云上正式对外 TCP——LoadBalancer
+## 5. 场景 B：NodePort（外网/调试入口）
 
-场景：云厂商分配 `203.0.113.10`。
-
-```text
-公网用户 → 云 LB VIP → 后端挂节点 NodePort 或直接到 Pod
-         → Service → Pod
+```mermaid
+flowchart LR
+  PC[笔记本] -->|节点IP:30080| N[任意 Worker]
+  N -->|内核规则：nodePort→Service→endpoint| P[某 Pod:targetPort]
 ```
 
-**内化点：** LoadBalancer 类型 =「请云帮我建一个 LB，并接到这个 Service」。没云环境常会 Pending。
+关键旋钮：`type=NodePort` + `ports.nodePort`（或自动分配）。  
+每台节点都开同一 `nodePort`；打到**任意**节点一般都能进。
 
 ---
 
-### 案例 D：网站按域名进——Ingress + ClusterIP
+## 6. 场景 C：LoadBalancer（云上对外）
 
-场景：`https://shop.example.com/api` → API；`/` → 前端。
+```mermaid
+flowchart LR
+  U[公网用户] --> CLB[云厂商 LB VIP]
+  CLB -->|挂载节点 NodePort 或直连 Pod/ENI 视实现| N[节点/后端]
+  N --> Svc[Service 转发逻辑]
+  Svc --> P[Pod]
+```
+
+关键旋钮：`type=LoadBalancer`；看 `status.loadBalancer.ingress` 是否已有外部 IP。  
+没云控制器 → 常一直 **Pending**。  
+很多实现 = **云 LB + 后面仍是 NodePort/节点转发**（口述点到即可）。
+
+---
+
+## 7. 场景 D：Ingress（HTTP 南北向）
 
 ```mermaid
 flowchart TB
-  Browser[浏览器] -->|Host: shop.example.com| IC[Ingress Controller]
-  IC -->|/api| Sapi[Service/api ClusterIP]
-  IC -->|/| Sweb[Service/web ClusterIP]
-  Sapi --> AP1[api Pod]
-  Sweb --> WP1[web Pod]
+  Br[浏览器 Host=shop.example.com] --> LB[常有云 LB 打到 Controller]
+  LB --> IC[Ingress Controller Pod]
+  IC -->|按 path 选后端 Service 名| S80[Service orders ClusterIP:80]
+  S80 -->|同场景 A 的转发| API[api Pod:8080]
 ```
 
-**内化点：**  
-- Ingress **对象**只是规则；必须有 **Ingress Controller** 在跑  
-- Ingress 后面通常是 **ClusterIP Service**，不是直接替代 Service  
-- TLS 证书常挂在 Ingress 这层终止
+对比：
+
+| 路径 | 是否经 Ingress |
+|------|----------------|
+| 浏览器打开网站 | 通常要（或等价网关） |
+| 集群内支付→订单 | **不要** |
 
 ---
 
-## 4. 内部关键细节（面试够用，不背源码）
+## 8. 「连接」到底怎么连上的？（selector → Endpoints → 规则）
 
-### 4.1 Endpoints / EndpointSlice
-
-Service 用 selector 选中 Pod 后，控制面会维护「当前可转发的地址列表」。
+分三步，面试按这个说：
 
 ```text
-Service selector: app=orders
-  → 匹配到的 Pod IP:端口 写入 Endpoints
-  → 没有匹配 / Pod 未 Ready → Endpoints 为空 → 表现为「Service 不通」
+① 声明关系（Service）
+   selector: app=orders
+   port 80 → targetPort 8080
+   分配 clusterIP
+
+② 算出名单（Endpoints/EndpointSlice）
+   列出 labels 匹配且 Ready 的 PodIP:8080
+   名单空 = Service「悬空」= 常见不通原因
+
+③ 装上管道（kube-proxy）
+   每个节点：看到「有人访问 clusterIP:80」
+   → 从名单里挑一个 → DNAT 到 PodIP:8080
 ```
 
-**排查第一反应：** `kubectl get endpoints <svc>` 有没有地址（链 R1-Q11）。
-
-### 4.2 kube-proxy：iptables vs ipvs（对比点到）
-
-| | iptables | ipvs |
-|--|----------|------|
-| 直觉 | 一堆 iptables 规则做 DNAT | 内核负载均衡 |
-| 规模 | Service/Pod 很多时规则更新重 | 大规模常更稳 |
-| 面试 | 知道「节点上有转发规则」即可 | 知道「另一种模式」即可 |
-
-### 4.3 readiness 和「进不进 Service」
-
-Pod Running 但 **readiness 失败** → 通常 **不会进 Endpoints** → Service 不会把流量打给它。  
-对比：liveness 失败会重启；readiness 失败只摘流量（链 R1-Q07）。
+扩缩容时：ClusterIP **不变**；变的是 Endpoints 名单和节点规则。
 
 ---
 
-## 5. 选型速查（内化成肌肉）
+## 9. 选型肌肉（带误用代价）
 
-| 需求 | 选什么 |
-|------|--------|
-| 集群内服务互调 | ClusterIP |
-| 临时从外网调试 | NodePort |
-| 云上对外 TCP/简单一端口 | LoadBalancer |
-| 对外 HTTP 多域名/多路径 | Ingress → 多个 ClusterIP |
-| 东西向要加密/网格 | 另议 Mesh（L3 点到边界即可） |
-
----
-
-## 6. 动手脑补（不用真集群也能想）
-
-1. 订单 Pod 扩了 3 个副本：ClusterIP 不变，Endpoints 变多，转发在副本间分担。  
-2. 删光所有订单 Pod：ClusterIP 还在，Endpoints 空，调用失败——**问题在后端不是「Service 没了」**。  
-3. 只有 Ingress 没装 Controller：域名永远进不来。  
+| 需求 | 选 | 为什么不选另一个 |
+|------|----|------------------|
+| Pod→Pod 业务调用 | ClusterIP + DNS | 走 Ingress 多一跳、还绑 HTTP |
+| 临时 curl 验证 | NodePort | 生产当主入口难管理、端口丑 |
+| 云上对外 TCP/单端口 | LoadBalancer | 纯 ClusterIP 外网进不来 |
+| 多域名/多路径 HTTPS | Ingress→多个 ClusterIP | 每个域名一个 LB 又贵又散 |
 
 ---
 
-## 7. 30 秒背板 + 自测
+## 10. 30 秒背板
 
-背板：ClusterIP 内；NodePort 节点端口；LB 云负载均衡；Ingress HTTP 路由且后端仍是 Service。
+- ClusterIP = 集群内 VIP；域名解析到它；转发靠节点规则，不靠「先访问 kube-proxy HTTP」。  
+- selector→Endpoints 名单；规则按名单 DNAT 到 Pod。  
+- NodePort/LB/Ingress 是**怎么从外进来**；进来后多数仍落到 Service→Pod。  
+- 东西向不走 Ingress。
 
-自测：
-1. 画「浏览器 → Ingress → Service → Pod」  
-2. 支付调订单为什么一般不走 Ingress？  
-3. Endpoints 为空时你先怀疑什么？
+自测（闭卷画图）：
+1. 画出 PodA→ServiceB→PodB 四步（DNS / VIP / 规则 / PodIP）  
+2. 标出 selector、Endpoints、port/targetPort 各在哪一步用到  
+3. 同一调用为什么不经 Ingress？

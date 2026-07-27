@@ -56,6 +56,12 @@ require "06-golang/04-backend-lite/README.md"
 require "06-golang/05-coding/README.md"
 require "06-golang/05-coding/G-01-timeout-counter.md"
 require "06-golang/mocks/TEMPLATE.md"
+require ".cursor/skills/interview-coach/SKILL.md"
+require "scripts/resume-training.sh"
+require "docs/superpowers/specs/2026-07-26-interview-coach-skill-design.md"
+require "docs/superpowers/specs/2026-07-27-focus-zone-and-hotspots-design.md"
+require "review/question-sources/2026-07-27.md"
+require "notes/A-target/k8s-troubleshoot-crashloop-oom-notready.md"
 if [[ "$missing" -ne 0 ]]; then
   echo "Structure check FAILED"
   exit 1

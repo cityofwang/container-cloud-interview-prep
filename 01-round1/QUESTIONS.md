@@ -187,8 +187,16 @@
 
 **追问：** 为什么不能只 Watch 从不 List？
 
-**题源标签：** 题源雷达 · 云原生 Go 边界  
-**对比点：** List-Watch vs 裸轮询  
+**Informer 直觉层（题源 2026-07-27 加深，非源码默写）：**
+- Informer ≈ List-Watch + 本地缓存 + 事件分发给 handler
+- DeltaFIFO：把增删改事件排队，避免 handler 直接打爆 apiserver
+- WorkQueue：常带限速/重入；一个 handler 阻塞不应无限拖死整条控制回路（点到「队列解耦」即可）
+- 运维侧自己 Watch：同样要限流/去重；对比控制器 Informer：你做的是反应，不是替换控制面
+
+**追问 2：** Watch 的是 apiserver 还是 etcd？resourceVersion 大概干什么？
+
+**题源标签：** 题源雷达 2026-07-27 · 云原生 Go 边界  
+**对比点：** List-Watch vs 裸轮询；Informer 缓存 vs 每次打 apiserver  
 **挂钩提示：** S3
 
 ## R1-Q14 污点、容忍与亲和（一面点到）
@@ -258,3 +266,38 @@
 **题源标签：** 国内高频 · 流程熟练度（选人标准「流程能串」）  
 **举一反三：** 会这条 → 应能迁移讲滚动、驱逐、挂载失败卡点  
 **挂钩提示：** S5
+
+## R1-Q18 kube-proxy：iptables vs ipvs（对比专场）
+
+**题目：** Service 数据面转发里，iptables 模式和 ipvs 模式差在哪？什么规模/场景你会倾向提 ipvs？排障时你怎么确认当前模式？
+
+**参考答法要点：**
+- 共同点：都不要求业务流量「先 HTTP 进 kube-proxy 进程」；kube-proxy 主要是**维护节点上的转发规则**
+- iptables：用规则链做 DNAT/负载；规则数随 Service/Endpoints 涨，更新成本更明显
+- ipvs：内核负载均衡（相对更适合大规模 Service）；调度算法可选（rr 等，一面点到即可）
+- 选型直觉：小中规模 iptables 常见够用；Service/规则爆炸或延迟敏感时讨论 ipvs（托管集群以平台默认为准）
+- 确认方式：看 kube-proxy 模式配置/文档/指标或 `ipvsadm`/`iptables` 现象（托管集群可能无权限，诚实说边界）
+
+**追问：** Endpoints 为空时，两种模式都会「有入口无后端」吗？你先查什么？
+
+**题源标签：** 题源雷达 2026-07-27 · 按题源报告补题  
+**对比点：** iptables 规则链 vs ipvs 内核 LB；有无后端 vs 转发模式  
+**挂钩提示：** S5；笔记可链 Service/Ingress 篇
+
+## R1-Q19 排障三路径卡：CrashLoop / OOM / NotReady
+
+**题目：** 分别口述 CrashLoopBackOff、OOMKilled、Ready=False 的**标准排查路径**（各 4～6 步），并说清三者如何互相误判。
+
+**参考答法要点：**
+- **CrashLoop：** describe 事件 → 当前/上次容器日志 → 退出码 → 启动命令/配置 → 探针是否误杀 → 依赖（下游/权限/文件）→ 是否其实 OOM
+- **OOM：** 事件/Reason=OOMKilled → limits 与实际 RSS → 泄漏 vs 限额过小 → 对比 requests/节点压力 → 是否该扩 limit 或修应用
+- **NotReady：** Ready 条件/readiness 失败原因 → 端口是否 listen → 依赖探测是否过严 → 与「进程在跑但不开流量」区分
+- **互判：** CrashLoop 可能被探针误杀；OOM 常表现为重启；NotReady 不一定退出（Running 但未接流量）
+
+**追问：** 只有 events 没有日志权限时，你还能做哪三步？
+
+**详解笔记：** [`notes/A-target/k8s-troubleshoot-crashloop-oom-notready.md`](../notes/A-target/k8s-troubleshoot-crashloop-oom-notready.md)  
+**题源标签：** 题源雷达 2026-07-27 · 按题源报告补题 · FZ2 也可复用  
+**对比点：** 进程崩溃 vs 被杀 vs 未就绪；Running vs Ready  
+**挂钩提示：** S5、S3
+

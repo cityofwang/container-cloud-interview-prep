@@ -7,12 +7,21 @@
 
 - **不会 / 半会** → 先读对应笔记，再闭卷口述；口述 ≥4 连续 2 次才做出库
 - 口令：`补笔记 <主题>`；或训练中教练直接落篇
-- 平日仍以错题回炉为主，写笔记不占满 30 分钟额度去开新大课
+- 平日仍以**当前专注区（FZ）**错题/复述为主；写笔记服务同域，不跨域开新大课
+- 热点与专场排序见 `00-profile/KNOWLEDGE-MAP.md`
 
 ## 目录
 
-- `A-target/` — 目标岗主图谱
+- `A-target/` — 目标岗主图谱（含 Service/Ingress、排障三路径、Go 陷阱等）
 - `B-thin/` — 网络 / OS / 算法等薄册（按需增量）
+
+### A-target 索引（部分）
+
+| 笔记 | 关联题 / 域 |
+|------|-------------|
+| `k8s-service-ingress.md` | R1-Q04/Q11 · FZ1 |
+| `k8s-troubleshoot-crashloop-oom-notready.md` | R1-Q09/Q19 · FZ1/FZ2 |
+| `go-error-wrapping.md` 等 | Go · FZ3/FZ4 |
 
 ## 单篇结构
 
