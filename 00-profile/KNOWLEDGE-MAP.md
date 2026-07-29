@@ -16,18 +16,18 @@
 
 | 域 | 维 | 知识点 | 热点 | 场景 | L3 | 状态 | 笔记 / 错题 |
 |----|----|--------|------|------|-----|------|-------------|
-| 容器/K8s 基础 | C1 | Service/Ingress（含 NodePort vs LB vs Ingress） | 必会 | 一面对象 | 核心 | 不会→补洞中 | R1-Q04；[笔记](../notes/A-target/k8s-service-ingress.md) |
-| 容器/K8s 基础 | C1 | Service 不通排查（EP/selector/targetPort） | 必会 | 排障路径 | 核心 | 不会 | R1-Q11 |
+| 容器/K8s 基础 | C1 | Service/Ingress（含 NodePort vs LB vs Ingress） | 必会 | 一面对象 | 核心 | 半会 | R1-Q04；[笔记](../notes/A-target/k8s-service-ingress.md) |
+| 容器/K8s 基础 | C1 | Service 不通排查（EP/selector/targetPort） | 必会 | 排障路径 | 核心 | 半会 | R1-Q11 |
 | 容器/K8s 基础 | C1 | Pod / 工作负载选型 | 必会 | 一面对象 | 核心 | 会/半会 | R1-Q02/Q03 |
-| 容器/K8s 基础 | C1 | 探针（liveness/readiness/startup） | 高频 | 一面对象 | 核心 | 不会 | R1-Q07 |
-| 容器/K8s 基础 | C1 | ConfigMap/Secret | 高频 | 一面对象 | 核心 | 不会 | R1-Q05 |
+| 容器/K8s 基础 | C1 | 探针（liveness/readiness/startup） | 高频 | 一面对象 | 核心 | 半会 | R1-Q07；[笔记](../notes/A-target/k8s-probes.md) |
+| 容器/K8s 基础 | C1 | ConfigMap/Secret | 高频 | 一面对象 | 核心 | 半会 | R1-Q05；[笔记](../notes/A-target/k8s-configmap-secret.md) |
 | 容器/K8s 基础 | C1 | 资源与 QoS / requests·limits | 高频 | 一面对象 | 核心 | 会 | R1-Q06 |
 | 容器/K8s 基础 | C1 | 发布回滚 / Ready 与灰度选型 | 高频 | 发布灰度 | 核心 | 会 | R1-Q08/Q12 |
 | 容器/K8s 基础 | C1 | Pod 创建端到端 | 必会 | 一面对象·合面综合 | 核心 | 半会 | R1-Q17；`PROCESS-FLOWS.md` |
-| 容器/K8s 基础 | C1 | List-Watch / Informer 直觉 | 高频 | 云原生Go | 重要 | 不会 | R1-Q13（已加深 Informer/DeltaFIFO/WorkQueue） |
-| 容器/K8s 基础 | C1 | 污点/亲和 / 调度过滤打分 | 常考 | 调度混部 | 重要 | 不会 | R1-Q14 |
+| 容器/K8s 基础 | C1 | List-Watch / Informer 直觉 | 高频 | 云原生Go | 重要 | 半会 | R1-Q13；[笔记](../notes/A-target/k8s-list-watch-informer.md) |
+| 容器/K8s 基础 | C1 | 污点/亲和 / 调度过滤打分 | 常考 | 调度混部 | 重要 | 不会→补洞中 | R1-Q14；[笔记](../notes/A-target/k8s-taint-affinity.md) |
 | 容器/K8s 基础 | C1 | CNI 现象级 | 常考 | 排障路径 | 重要 | 会 | R1-Q15 |
-| 容器/K8s 基础 | C1 | 控制面边界 / 组件职责 | 高频 | 一面对象 | 核心 | 不会 | R1-Q16 |
+| 容器/K8s 基础 | C1 | 控制面边界 / 组件职责 | 高频 | 一面对象 | 核心 | 半会 | R1-Q16；[笔记](../notes/A-target/k8s-control-plane-boundary.md) |
 | 容器/K8s 基础 | C1 | Docker/namespace·cgroup 隔离 | 高频 | 一面对象 | 核心 | 半会 | R1-Q01 |
 | 容器/K8s 基础 | C1 | kube-proxy：iptables vs ipvs | 常考 | 一面对象 | 重要 | 未测 | R1-Q18；题源 2026-07-27 |
 | 排障与可观测 | C2 | CrashLoop/OOM/NotReady 路径 | 必会 | 排障路径 | 核心 | 未测 | R1-Q09/Q19；[笔记](../notes/A-target/k8s-troubleshoot-crashloop-oom-notready.md) |

@@ -20,6 +20,11 @@
 | 笔记 | 关联题 / 域 |
 |------|-------------|
 | `k8s-service-ingress.md` | R1-Q04/Q11 · FZ1 |
+| `k8s-configmap-secret.md` | R1-Q05 · FZ1 |
+| `k8s-probes.md` | R1-Q07 · FZ1 |
+| `k8s-list-watch-informer.md` | R1-Q13 · FZ1 |
+| `k8s-control-plane-boundary.md` | R1-Q16 · FZ1 |
+| `k8s-taint-affinity.md` | R1-Q14 · FZ1 |
 | `k8s-troubleshoot-crashloop-oom-notready.md` | R1-Q09/Q19 · FZ1/FZ2 |
 | `go-error-wrapping.md` 等 | Go · FZ3/FZ4 |
 
