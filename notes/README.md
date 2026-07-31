@@ -25,6 +25,7 @@
 | `k8s-list-watch-informer.md` | R1-Q13 · FZ1 |
 | `k8s-control-plane-boundary.md` | R1-Q16 · FZ1 |
 | `k8s-taint-affinity.md` | R1-Q14 · FZ1 |
+| `k8s-kube-proxy-iptables-ipvs.md` | R1-Q18 · FZ1 |
 | `k8s-troubleshoot-crashloop-oom-notready.md` | R1-Q09/Q19 · FZ1/FZ2 |
 | `go-error-wrapping.md` 等 | Go · FZ3/FZ4 |
 

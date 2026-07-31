@@ -3,7 +3,7 @@
 > **维护规则：** 以后每新增/废弃一口令，必须同步改本表，并更新 `README.md` 口令行；若影响续聊，再改 `CONTINUITY.md`。  
 > 关联设计：`docs/superpowers/specs/2026-07-23-stage-portraits-and-question-sources-design.md`
 
-最后更新：2026-07-23
+最后更新：2026-07-31
 
 ## 时间盒 / 节奏
 
@@ -67,6 +67,18 @@
 | （人话）有空半小时 / 周末了 / 好累只看下次 / 按 CONTINUITY 继续 | 由助手映射到上表动作，见 `CONTINUITY.md`「操盘规则」 |
 | `面试训练` | 触发项目 Skill `interview-coach`（等同操盘开场） |
 
+## P 轨 / 项目学习（平行选修，不打乱 FZ）
+
+| 口令 | 作用 | 典型时机 |
+|------|------|----------|
+| `项目专场 <slug>` | 按 `07-projects/<slug>/` 开练；先答后讲 | 周末加 1h |
+| `项目专场 <slug> <章>` | 指定章，如 `kata 03-observability` | 按需 |
+| `项目进度` | 列各项目 PROJECT.md 状态 | 随时 |
+| `新项目 …` | onboarding，见 `07-projects/ONBOARDING.md` | 接触新 GitHub 项目 |
+| `项目规划-only` | 只出 INDEX+排期，确认后落仓 | 先规划后写 |
+| `项目加章 <slug> <章名>` | 增写一章 | 按需 |
+| `项目学习` | 触发 Skill `project-learn` | 等同项目专场开场 |
+
 > **操盘约定：** 口令给助手用；学员用人话即可。完整规则在 `CONTINUITY.md`。  
 > **唤醒：** 新 Chat 说 `面试训练` / `按操盘规则继续`，或 `bash scripts/resume-training.sh` 拷开场模板。
 
@@ -83,3 +95,4 @@
 | 2026-07-23 | 增补考察思维口令 `考察说明`；模拟按 MINDSETS §3 |
 | 2026-07-24 | 题源补题：一面 Q11–16、concurrency 预置、二面预习、场景线；口令 `练场景题` |
 | 2026-07-24 | 选人标准 §3.5；流程清单；Pod 创建 Q17；场景举一反三 SCE-05…08 |
+| 2026-07-31 | P 轨：`07-projects/` + 口令 `项目专场`/`新项目`/…；Skill `project-learn` |

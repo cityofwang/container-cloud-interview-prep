@@ -46,3 +46,13 @@
 - 结果：待补全
 - 反思：待补全
 - 可能追问：如何减少误报？SLO 怎么定？值班升级路径？
+
+## S6 Kata 物理机 workload 治理（草稿）
+
+- 情境：节点跑 Kata Pod，需容器级监控与 pids/CPU 治理；初版误读 Host cgroup
+- 目标：准确 Guest cgroup 指标 + 可动态 Update 规格
+- 动作：containerd SDK Stats/Update；Kata 分支 vs runc；VMM 单独 monitor；节点配置基线
+- 结果：待补全（指标对齐、误告警等）
+- 反思：待补全
+- 可能追问：Stats vs monitor？为何不用 vsock？cadvisor 为何不够？
+- **P 轨详稿：** [`07-projects/kata-containers/interview-hooks.md`](../07-projects/kata-containers/interview-hooks.md)
