@@ -32,6 +32,7 @@
 | 容器/K8s 基础 | C1 | 控制面边界 / 组件职责 | 高频 | 一面对象 | 核心 | 半会 | R1-Q16；[笔记](../notes/A-target/k8s-control-plane-boundary.md) |
 | 容器/K8s 基础 | C1 | Docker/namespace·cgroup 隔离 | 高频 | 一面对象 | 核心 | 半会 | R1-Q01 · P:kata/K01 |
 | 容器/K8s 基础 | C1 | kube-proxy：iptables vs ipvs | 常考 | 一面对象 | 重要 | 半会 | R1-Q18；[笔记](../notes/A-target/k8s-kube-proxy-iptables-ipvs.md) |
+| 容器/K8s 基础 | C1 | 出网 SNAT / Service DNAT | 高频 | 排障路径 | 重要 | 未测 | R1-Q20；[笔记](../notes/A-target/k8s-container-snat-dnat.md)·京东题感 |
 | 排障与可观测 | C2 | CrashLoop/OOM/NotReady 路径 | 必会 | 排障路径 | 核心 | 半会 | R1-Q09/Q19；[笔记](../notes/A-target/k8s-troubleshoot-crashloop-oom-notready.md) |
 | 排障与可观测 | C2 | 监控告警 / 事件挂钩生产 | 高频 | 排障路径 | 核心 | 会（经历） | R1-Q10；待深挖口述 · P:kata/03-observability |
 | 混部/cgroup/CSI | C3 | 混部干扰与隔离、cgroup | 高频 | 调度混部 | 核心 | 未测（经历强） | 故事卡 · P:kata/K13（未写章） |

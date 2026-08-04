@@ -301,3 +301,19 @@
 **对比点：** 进程崩溃 vs 被杀 vs 未就绪；Running vs Ready  
 **挂钩提示：** S5、S3
 
+## R1-Q20 容器出网 SNAT 与 Service DNAT（京东题感）
+
+**题目：** 容器访问外网、以及访问 ClusterIP Service 时，分别可能涉及哪类地址转换？和 kube-proxy 什么关系？排障时怎么用这个模型？
+
+**参考答法要点：**
+- **出网（Pod → 外网）：** 常经节点做 **SNAT/MASQUERADE**（源地址改成节点 IP，保证回程能回来）；细节因 CNI/云网络而异，托管集群点到「出网要有去有回」即可
+- **访问 Service：** 客户端打到 ClusterIP 后，节点上 kube-proxy 规则做 **DNAT**（目的改成某 PodIP:targetPort）；iptables/ipvs 都是在干「选后端 + 改写」
+- **和 R1-Q11/Q18 衔接：** 先确认 Endpoints 有后端，再谈规则是否装上；别一上来抠 CNI 源码
+- **京东运维开发面经同构：** Docker 隔离 → 容器通信 → 出网 SNAT → Service/iptables DNAT → 跨主机通信（VTEP/CNI 现象级）
+
+**追问：** Endpoints 有地址仍不通，你查 DNAT/规则还是先查目标 Pod 端口 listen？
+
+**题源标签：** 题源雷达 2026-07-31 · 按题源报告补题 · 京东运维开发样例同构（多厂通用）  
+**对比点：** SNAT（改源、出网）vs DNAT（改目的、进 Service）；有后端 vs 转发模式  
+**挂钩提示：** S5；链 R1-Q11、R1-Q18；笔记可补 `k8s-container-snat-dnat.md`  
+**详解笔记：** [`notes/A-target/k8s-container-snat-dnat.md`](../notes/A-target/k8s-container-snat-dnat.md)

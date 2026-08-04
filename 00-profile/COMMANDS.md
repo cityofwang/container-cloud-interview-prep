@@ -3,7 +3,7 @@
 > **维护规则：** 以后每新增/废弃一口令，必须同步改本表，并更新 `README.md` 口令行；若影响续聊，再改 `CONTINUITY.md`。  
 > 关联设计：`docs/superpowers/specs/2026-07-23-stage-portraits-and-question-sources-design.md`
 
-最后更新：2026-07-31
+最后更新：2026-08-03
 
 ## 时间盒 / 节奏
 
@@ -79,6 +79,17 @@
 | `项目加章 <slug> <章名>` | 增写一章 | 按需 |
 | `项目学习` | 触发 Skill `project-learn` | 等同项目专场开场 |
 
+## X 轨 / 探索追问（动态，非固定树）
+
+| 口令 | 作用 | 典型时机 |
+|------|------|----------|
+| `追问模式` / `探索专场` | 读 `PROBE-PROTOCOL` + `ASSOCIATION-RULES`；**听答后**选生成器追问 | 深度纠偏、原理链 |
+| `探索训练` | 触发 Skill `explore-coach`（等同探索专场开场） | 新 Chat |
+| `关联一下` | 当前话题沿 ≤2 维度关联；先答后讲，≤5min | 碎片 |
+| `校准面` | 偏对比/边界/线上证伪，模拟考官加压 | 模拟前热身 |
+| `看追问协议` | 打开 `00-profile/PROBE-PROTOCOL.md` | 随时 |
+| `看关联规则` | 打开 `00-profile/ASSOCIATION-RULES.md` | 随时 |
+
 > **操盘约定：** 口令给助手用；学员用人话即可。完整规则在 `CONTINUITY.md`。  
 > **唤醒：** 新 Chat 说 `面试训练` / `按操盘规则继续`，或 `bash scripts/resume-training.sh` 拷开场模板。
 
@@ -96,3 +107,4 @@
 | 2026-07-24 | 题源补题：一面 Q11–16、concurrency 预置、二面预习、场景线；口令 `练场景题` |
 | 2026-07-24 | 选人标准 §3.5；流程清单；Pod 创建 Q17；场景举一反三 SCE-05…08 |
 | 2026-07-31 | P 轨：`07-projects/` + 口令 `项目专场`/`新项目`/…；Skill `project-learn` |
+| 2026-08-03 | X 轨通用底座：`PROBE-PROTOCOL` + `ASSOCIATION-RULES` + Skill `explore-coach` |
