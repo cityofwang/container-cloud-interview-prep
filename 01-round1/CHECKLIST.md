@@ -23,17 +23,22 @@
 | R1-Q17 | Pod 创建端到端 | 半会 |  |
 | R1-Q18 | iptables vs ipvs | 半会 | [笔记](../notes/A-target/k8s-kube-proxy-iptables-ipvs.md) · 2026-07-30 四句过关；钉「两者都是内核数据面」 |
 | R1-Q19 | CrashLoop/OOM/NotReady 三路径 | 半会偏上 | [笔记](../notes/A-target/k8s-troubleshoot-crashloop-oom-notready.md) · 2026-07-31：OOM好；须分清探针→NotReady vs liveness→CrashLoop |
-| R1-Q20 | 出网 SNAT / Service DNAT | 未测 | [笔记](../notes/A-target/k8s-container-snat-dnat.md) · 题源 07-31·**京东题感** |
+| R1-Q20 | 出网 SNAT / Service DNAT | 半会 | [笔记](../notes/A-target/k8s-container-snat-dnat.md) · 运维开发同构·多厂；网络特训中 |
+| R1-Q21 | CRI / containerd / runc / Kata | 未测 | [笔记](../notes/A-target/k8s-cri-containerd-runc-kata.md) · JD 清单 08-04 |
+| R1-Q22 | Device Plugin / GPU 调度 | 未测 | [笔记](../notes/A-target/k8s-device-plugin-gpu.md) · JD 清单 08-04 |
+| R1-Q23 | Scheduler Filter/Score/抢占 | 未测 | [笔记](../notes/A-target/k8s-scheduler-filter-score-preempt.md) · 脉脉 08-05 |
+| R1-Q24 | 抢占 vs 驱逐 vs QoS | 未测 | [笔记](../notes/A-target/k8s-preempt-evict-qos.md) · 题源 08-05 |
+| R1-Q25 | requests 与调度/超卖 | 未测 | [笔记](../notes/A-target/k8s-requests-scheduling-oversell.md) · 题源 08-05 |
 
 ## 统计
 
 | 档位 | 数量 |
 |------|------|
 | 会 | 7 |
-| 半会 | 12 |
+| 半会 | 13（含 Q20 特训中） |
 | 不会 | 0 |
-| 未测 | 1（Q20） |
+| 未测 | 5（Q21 讲练中、Q22–Q25） |
 
-会+半会 ≈ **开卷已摸完**；新增 Q20 待测。短模二刷默认**京东题感**。
+会+半会 ≈ 开卷主体已摸完；**调度易混 + 运行时**为近期补缺。短模默认**多厂均衡**。
 
-自评日期：2026-07-25；题包增补：2026-07-27 / **2026-07-31 Q20**；对练更新：2026-07-29～31
+自评日期：2026-07-25；题包增补：… / **2026-08-05 Q23–Q25（题源扫描）**；对练更新：至 08-05

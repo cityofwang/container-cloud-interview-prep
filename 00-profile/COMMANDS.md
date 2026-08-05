@@ -3,7 +3,7 @@
 > **维护规则：** 以后每新增/废弃一口令，必须同步改本表，并更新 `README.md` 口令行；若影响续聊，再改 `CONTINUITY.md`。  
 > 关联设计：`docs/superpowers/specs/2026-07-23-stage-portraits-and-question-sources-design.md`
 
-最后更新：2026-08-03
+最后更新：2026-08-04
 
 ## 时间盒 / 节奏
 
@@ -78,6 +78,8 @@
 | `项目规划-only` | 只出 INDEX+排期，确认后落仓 | 先规划后写 |
 | `项目加章 <slug> <章名>` | 增写一章 | 按需 |
 | `项目学习` | 触发 Skill `project-learn` | 等同项目专场开场 |
+| `项目专场 <slug> 读代码 [Rxx]` | 先答后讲 + 带读本地源码；`续` 读 `SESSION-STATE.md` | kata 等已配 `09-code-read-protocol` 的项目 |
+| `Kata 代码导读 [续\|Rxx]` | 等同 `项目专场 kata 读代码 …` | 新 Chat 续代码学习 |
 
 ## X 轨 / 探索追问（动态，非固定树）
 
@@ -108,3 +110,4 @@
 | 2026-07-24 | 选人标准 §3.5；流程清单；Pod 创建 Q17；场景举一反三 SCE-05…08 |
 | 2026-07-31 | P 轨：`07-projects/` + 口令 `项目专场`/`新项目`/…；Skill `project-learn` |
 | 2026-08-03 | X 轨通用底座：`PROBE-PROTOCOL` + `ASSOCIATION-RULES` + Skill `explore-coach` |
+| 2026-08-04 | P 轨 kata：`08-rd-exam-checklist` + `09-code-read-protocol` + `SESSION-STATE`；口令 `读代码` |

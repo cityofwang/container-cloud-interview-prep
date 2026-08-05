@@ -47,6 +47,9 @@
 | `interview-hooks.md` | 挂故事卡 / 面试追问 |
 | `sources.md` | 可选：repo、commit、关键路径索引 |
 | `quizzes/` | 自测题 |
+| `08-rd-exam-checklist.md` | 研发必考/必坑（可选） |
+| `09-code-read-protocol.md` | 带问题读源码轨道 Rxx（可选） |
+| `SESSION-STATE.md` | **跨 Chat 进度**；新对话读此续学 |
 
 ## 章节单篇结构
 

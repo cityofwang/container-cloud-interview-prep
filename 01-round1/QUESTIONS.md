@@ -301,7 +301,7 @@
 **对比点：** 进程崩溃 vs 被杀 vs 未就绪；Running vs Ready  
 **挂钩提示：** S5、S3
 
-## R1-Q20 容器出网 SNAT 与 Service DNAT（京东题感）
+## R1-Q20 容器出网 SNAT 与 Service DNAT（运维开发同构）
 
 **题目：** 容器访问外网、以及访问 ClusterIP Service 时，分别可能涉及哪类地址转换？和 kube-proxy 什么关系？排障时怎么用这个模型？
 
@@ -309,11 +309,104 @@
 - **出网（Pod → 外网）：** 常经节点做 **SNAT/MASQUERADE**（源地址改成节点 IP，保证回程能回来）；细节因 CNI/云网络而异，托管集群点到「出网要有去有回」即可
 - **访问 Service：** 客户端打到 ClusterIP 后，节点上 kube-proxy 规则做 **DNAT**（目的改成某 PodIP:targetPort）；iptables/ipvs 都是在干「选后端 + 改写」
 - **和 R1-Q11/Q18 衔接：** 先确认 Endpoints 有后端，再谈规则是否装上；别一上来抠 CNI 源码
-- **京东运维开发面经同构：** Docker 隔离 → 容器通信 → 出网 SNAT → Service/iptables DNAT → 跨主机通信（VTEP/CNI 现象级）
+- **面经同构（多厂）：** Docker 隔离 → 容器通信 → 出网 SNAT → Service/iptables DNAT → 跨主机通信（VTEP/CNI 现象级）
 
 **追问：** Endpoints 有地址仍不通，你查 DNAT/规则还是先查目标 Pod 端口 listen？
 
-**题源标签：** 题源雷达 2026-07-31 · 按题源报告补题 · 京东运维开发样例同构（多厂通用）  
+**题源标签：** 题源雷达 2026-07-31 · JD 技能清单 2026-08-04 · 运维开发同构（多厂通用）  
 **对比点：** SNAT（改源、出网）vs DNAT（改目的、进 Service）；有后端 vs 转发模式  
 **挂钩提示：** S5；链 R1-Q11、R1-Q18；笔记可补 `k8s-container-snat-dnat.md`  
 **详解笔记：** [`notes/A-target/k8s-container-snat-dnat.md`](../notes/A-target/k8s-container-snat-dnat.md)
+
+## R1-Q21 CRI / containerd / runc / Kata
+
+**题目：** 从 kubelet 到容器进程，链路经过哪些层？**containerd、runc、Kata** 各扮演什么角色？对比共享内核容器与 Kata 的隔离/开销，以及如何用 RuntimeClass 选用。
+
+**参考答法要点：**
+- **CRI：** kubelet 与运行时的接口；不绑死某一实现
+- **containerd：** 常见 CRI 实现；镜像与容器生命周期
+- **runc：** 默认 OCI 运行时；namespace/cgroup，**共享宿主机内核**
+- **Kata：** 轻量 VM / 更强隔离，开销更大；集群配置后用 `runtimeClassName` 选用
+- **对比：** 隔离模型、密度/启动、安全边界、选用方式；无 Kata 生产经历就讲清边界，可挂 P 轨真实部分
+
+**追问：** 「Docker 被弃用」和 containerd 是什么关系？镜像拉取失败你先怪哪一层？
+
+**详解笔记：** [`notes/A-target/k8s-cri-containerd-runc-kata.md`](../notes/A-target/k8s-cri-containerd-runc-kata.md)  
+**题源标签：** JD 技能清单 2026-08-04 · 容器平台/运维开发高频  
+**对比点：** runc vs Kata；CRI 接口 vs 具体实现  
+**挂钩提示：** R1-Q01；P:`kata-containers`；S2 cgroup  
+**深度层（过 L1 后加压，见 ROLE-DEPTH）：**
+- L2：containerd 和 dockershim 退场叙事；RuntimeClass 谁消费；Kata 走 shimv2 的直觉  
+- L3：镜像拉取失败分层排查；「Host 上看到的 CPU」为何不能当 Kata 业务利用率；何时值得上 Kata（租户隔离 vs 密度）
+
+## R1-Q22 Device Plugin 与 GPU 调度（现象级）
+
+**题目：** GPU 如何出现在节点可调度资源里？Pod 怎么申请？运维侧常如何避免普通业务占满 GPU 节点？
+
+**参考答法要点：**
+- Device Plugin 向 kubelet 注册 → Capacity 出现扩展资源（如 `nvidia.com/gpu`）
+- Pod `resources.limits` 写扩展资源；调度到有卡节点
+- 常配合 **污点/容忍、亲和、独立节点池**；监控卡利用率
+- 没写过插件：讲模型即可，不编 CUDA 细节
+
+**追问：** 扩展资源和 CPU/内存内建资源差在哪？和混部隔离怎么类比一句？
+
+**详解笔记：** [`notes/A-target/k8s-device-plugin-gpu.md`](../notes/A-target/k8s-device-plugin-gpu.md)  
+**题源标签：** JD 技能清单 2026-08-04 · GPU/训推平台高频  
+**对比点：** 内建资源 vs 扩展资源；通用节点 vs GPU 池  
+**挂钩提示：** R1-Q14；故事混部/资源
+
+## R1-Q23 Scheduler：Filter / Score / 抢占
+
+**题目：** Pod 从「待调度」到落到某个 Node，调度器大致经过哪些阶段？**Filter 和 Score 各解决什么问题？** 和污点/亲和怎么挂钩？资源不够时「抢占」你怎么理解（现象级即可）？
+
+**参考答法要点：**
+- **Filter：** 去掉不可行节点（资源、污点 NoSchedule、亲和硬约束、选择器等）
+- **Score：** 在可行集里打分选优（软亲和、散开、资源富余等）
+- **Bind：** 写入 nodeName / 绑定结果
+- **抢占/优先级：** 高优 Pod 可能挤掉低优（混部常见叙事）；与 QoS/驱逐不同概念，别糊成一团
+- **边界：** 未写过调度器不编源码；生态 Koordinator/Volcano 知定位即可
+
+**追问：** 节点资源够但有 NoSchedule 且无容忍——卡在 Filter 还是 Score？在离线混部时，你希望「在线」靠优先级/抢占还是靠池化污点？
+
+**详解笔记：** [`notes/A-target/k8s-scheduler-filter-score-preempt.md`](../notes/A-target/k8s-scheduler-filter-score-preempt.md)  
+**题源标签：** 脉脉调度 JD 2026-08-05 · 网易调度研发 / 容器后端  
+**对比点：** Filter vs Score；抢占 vs 污点池隔离  
+**挂钩提示：** R1-Q14；FZ5 混部；`cloud-native-sched-ecosystem.md`  
+**深度层：**
+- L2：优先级类 / Preemption 直觉；和 requests 过滤的关系  
+- L3：混部场景选型——污点池 vs 抢占 vs QoS 水位（挂真实经历）
+- L2 补：拓扑打散（TopologySpread）在单区容量不足时可能导致一直 Pending
+
+## R1-Q24 抢占 vs 驱逐 vs QoS
+
+**题目：** QoS、调度器抢占（Preemption）、kubelet 驱逐（Eviction）分别解决什么问题？谁触发？和 PriorityClass 什么关系？排障时怎么区分？
+
+**参考答法要点：**
+- **QoS：** 由 requests/limits 推导三档；影响驱逐优先级等，**不是** PriorityClass
+- **抢占：** scheduler 为高优 Pod 腾节点，可能删低优；典型是调度阶段
+- **驱逐：** kubelet 因节点压力（内存/盘等）踢 Pod
+- **区分：** Pending/unschedulable → 先调度侧；Running 后节点告警 → 先驱逐/OOM
+
+**追问：** 混部时只用 QoS 够不够？还要不要池化或优先级？
+
+**详解笔记：** [`notes/A-target/k8s-preempt-evict-qos.md`](../notes/A-target/k8s-preempt-evict-qos.md)  
+**题源标签：** 题源 2026-08-05 · 调度/混部面经易混  
+**对比点：** 三件套决策者与时机  
+**挂钩提示：** R1-Q06、Q23；FZ5
+
+## R1-Q25 requests 与调度 / 超卖隔离
+
+**题目：** 调度器主要根据什么决定「节点放不放得下」？为什么说「不设 requests 很危险」？若资源超卖，隔离可以靠什么（点 2～3 个即可）？
+
+**参考答法要点：**
+- 调度看 **requests**（及扩展资源等），不是瞬时真实用量
+- 不设 requests ≈ 占地近 0 → 易排满 → 运行期抖/驱逐
+- 超卖：节点池/污点、cgroup/QoS、优先级、配额等；挂真实经历
+
+**追问：** requests 很小、limits 很大时，调度和运行期谁更乐观？
+
+**详解笔记：** [`notes/A-target/k8s-requests-scheduling-oversell.md`](../notes/A-target/k8s-requests-scheduling-oversell.md)  
+**题源标签：** 题源 2026-08-05 · 网易基架/调度坑同构  
+**对比点：** 调度占位 vs 运行期争抢  
+**挂钩提示：** R1-Q06、Q23；混部故事

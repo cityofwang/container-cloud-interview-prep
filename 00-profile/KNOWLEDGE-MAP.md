@@ -12,7 +12,7 @@
 
 **P 轨挂钩列：** `P:<slug>/<章节或 K#>` — 见 [`07-projects/`](../07-projects/README.md)
 
-热点版本：2026-07-27（种子：2026-07-24 + 2026-07-27 题源扫描）
+热点版本：2026-08-05（题源全网扫 + 脉脉调度 JD）
 
 ## A 主图谱（目标岗）
 
@@ -27,12 +27,17 @@
 | 容器/K8s 基础 | C1 | 发布回滚 / Ready 与灰度选型 | 高频 | 发布灰度 | 核心 | 会 | R1-Q08/Q12 |
 | 容器/K8s 基础 | C1 | Pod 创建端到端 | 必会 | 一面对象·合面综合 | 核心 | 半会 | R1-Q17；`PROCESS-FLOWS.md` |
 | 容器/K8s 基础 | C1 | List-Watch / Informer 直觉 | 高频 | 云原生Go | 重要 | 半会 | R1-Q13；[笔记](../notes/A-target/k8s-list-watch-informer.md) |
-| 容器/K8s 基础 | C1 | 污点/亲和 / 调度过滤打分 | 常考 | 调度混部 | 重要 | 半会 | R1-Q14；[笔记](../notes/A-target/k8s-taint-affinity.md) |
+| 容器/K8s 基础 | C1 | 污点/亲和 / 调度过滤打分 | 高频 | 调度混部 | 重要 | 半会 | R1-Q14；[笔记](../notes/A-target/k8s-taint-affinity.md) |
+| 容器/K8s 基础 | C1 | Scheduler：Filter/Score/抢占 | 高频 | 调度混部 | 核心 | 未测 | R1-Q23；[笔记](../notes/A-target/k8s-scheduler-filter-score-preempt.md)·脉脉08-05 |
+| 容器/K8s 基础 | C1 | 抢占 vs 驱逐 vs QoS | 高频 | 调度混部 | 核心 | 未测 | R1-Q24；[笔记](../notes/A-target/k8s-preempt-evict-qos.md)·题源08-05 |
+| 容器/K8s 基础 | C1 | requests 与调度 / 超卖隔离 | 高频 | 调度混部 | 重要 | 未测 | R1-Q25；[笔记](../notes/A-target/k8s-requests-scheduling-oversell.md)·题源08-05 |
 | 容器/K8s 基础 | C1 | CNI 现象级 | 常考 | 排障路径 | 重要 | 会 | R1-Q15 · P:kata/K10（未写章） |
 | 容器/K8s 基础 | C1 | 控制面边界 / 组件职责 | 高频 | 一面对象 | 核心 | 半会 | R1-Q16；[笔记](../notes/A-target/k8s-control-plane-boundary.md) |
 | 容器/K8s 基础 | C1 | Docker/namespace·cgroup 隔离 | 高频 | 一面对象 | 核心 | 半会 | R1-Q01 · P:kata/K01 |
+| 容器/K8s 基础 | C1 | CRI / containerd / runc / Kata·RuntimeClass | 高频 | 一面对象 | 核心 | 未测 | R1-Q21；[笔记](../notes/A-target/k8s-cri-containerd-runc-kata.md) · P:kata |
+| 容器/K8s 基础 | C1 | Device Plugin / GPU 扩展资源（现象） | 常考 | 调度混部 | 重要 | 未测 | R1-Q22；[笔记](../notes/A-target/k8s-device-plugin-gpu.md) |
 | 容器/K8s 基础 | C1 | kube-proxy：iptables vs ipvs | 常考 | 一面对象 | 重要 | 半会 | R1-Q18；[笔记](../notes/A-target/k8s-kube-proxy-iptables-ipvs.md) |
-| 容器/K8s 基础 | C1 | 出网 SNAT / Service DNAT | 高频 | 排障路径 | 重要 | 未测 | R1-Q20；[笔记](../notes/A-target/k8s-container-snat-dnat.md)·京东题感 |
+| 容器/K8s 基础 | C1 | 出网 SNAT / Service DNAT | 高频 | 排障路径 | 重要 | 半会 | R1-Q20；[笔记](../notes/A-target/k8s-container-snat-dnat.md)·运维开发同构 |
 | 排障与可观测 | C2 | CrashLoop/OOM/NotReady 路径 | 必会 | 排障路径 | 核心 | 半会 | R1-Q09/Q19；[笔记](../notes/A-target/k8s-troubleshoot-crashloop-oom-notready.md) |
 | 排障与可观测 | C2 | 监控告警 / 事件挂钩生产 | 高频 | 排障路径 | 核心 | 会（经历） | R1-Q10；待深挖口述 · P:kata/03-observability |
 | 混部/cgroup/CSI | C3 | 混部干扰与隔离、cgroup | 高频 | 调度混部 | 核心 | 未测（经历强） | 故事卡 · P:kata/K13（未写章） |
@@ -52,8 +57,10 @@
 | 编码过线 | X1 | 小练习次数 | 高频 | 合面综合 | 核心 | 未测 | `06-golang/05-coding/` |
 | 表达 | X2 | 四段式 / 排障 / STAR | 必会 | 合面综合 | 核心 | 进行中 | `ANSWERING.md` |
 | 流程熟练度 | C1 | Pod 创建等关键路径 | 必会 | 一面对象 | 核心 | 未测 | `PROCESS-FLOWS.md`；R1-Q17 |
+| （观察） | — | etcd 压力/HA 现象 + 与 apiserver 关系 | 高频 | 合面综合 | 重要 | 未测 | [笔记](../notes/A-target/etcd-enough-for-interview.md)·脉脉调度 JD |
+| （观察） | — | Koordinator / Volcano / OpenKruise 定位 | 加分 | 调度混部 | 可后置 | — | [薄册](../notes/A-target/cloud-native-sched-ecosystem.md) |
 | （观察） | — | Mesh / 多集群 | 冷门 | 合面综合 | 可后置 | — | 观察维 O4 |
-| （观察） | — | etcd Raft / 脑裂深挖 | 加分 | 合面综合 | 可后置 | — | 云厂商/基础架构岗加分；L3 不主攻 |
+| （观察） | — | etcd Raft / 脑裂深挖 | 加分 | 合面综合 | 可后置 | — | 有社区向 JD 再加压 |
 
 ## B 薄册（够用）
 

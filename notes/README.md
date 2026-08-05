@@ -26,7 +26,18 @@
 | `k8s-control-plane-boundary.md` | R1-Q16 · FZ1 |
 | `k8s-taint-affinity.md` | R1-Q14 · FZ1 |
 | `k8s-kube-proxy-iptables-ipvs.md` | R1-Q18 · FZ1 |
-| `k8s-container-snat-dnat.md` | R1-Q20 · FZ1 · 京东题感 |
+| `k8s-container-snat-dnat.md` | R1-Q20 · FZ1 · 运维开发同构 |
+| `docker-bridge-packet-path.md` | R1-Q20 深挖 · 默认 bridge 逐跳 |
+| `k8s-cri-containerd-runc-kata.md` | R1-Q21 · FZ1 · JD 高频 |
+| `container-image-layers-rootfs.md` | 镜像分层/rootfs · 挂 Q21 |
+| `containerd-what-it-does.md` | containerd 职责 · 挂 Q21 |
+| `image-registry-manifest-digest.md` | 镜像仓 manifest/digest · 够用级 |
+| `k8s-device-plugin-gpu.md` | R1-Q22 · FZ1 · GPU 现象 |
+| `k8s-scheduler-filter-score-preempt.md` | R1-Q23 · 调度框架 · 脉脉08-05 |
+| `etcd-enough-for-interview.md` | etcd 够用级 · 调度研发 JD |
+| `cloud-native-sched-ecosystem.md` | Koordinator/Volcano/Kruise 定位 |
+| `k8s-preempt-evict-qos.md` | R1-Q24 · 易混三件套 |
+| `k8s-requests-scheduling-oversell.md` | R1-Q25 · requests/超卖 |
 | `k8s-troubleshoot-crashloop-oom-notready.md` | R1-Q09/Q19 · FZ1/FZ2 |
 | `go-error-wrapping.md` 等 | Go · FZ3/FZ4 |
 

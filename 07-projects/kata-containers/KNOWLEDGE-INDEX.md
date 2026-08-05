@@ -35,14 +35,30 @@
 | K23 | RuntimeAdapter | `07-production-agent-design` | — | 未学 |
 | K27 | Kata 2.x vs 3.0 | `06-hypervisor-and-3.0` | — | 未学 |
 
+## 读代码轨道（带 SESSION-STATE 续聊）
+
+| 轨道 | 主题 | 关联 Kxx | 协议 |
+|------|------|----------|------|
+| R01 | shim Create | K04,K06 | `09-code-read-protocol.md` |
+| R02 | startVM | K06,K18 | 同上 |
+| R03 | agent CreateSandbox | K08 | 同上 |
+| R04 | Stats 全链 | K12,K15,K16 | 同上 |
+| R05 | Update | K14,K03 | 同上 |
+| R06 | tcfilter | K10 | 同上 |
+| R07 | Host cgroup | K13,K14,K21 | 同上 |
+| R08 | monitor | K12,K22 | 同上 |
+
+**口令：** `项目专场 kata 读代码 续` · 必考清单：`08-rd-exam-checklist.md`
+
 ## 建议学习顺序
 
 1. ✅ `00-one-pager.md`
 2. ✅ `03-observability.md` + `quizzes/01-smoke.md`
-3. `01-isolation-and-cgroup.md`（接 FZ5 / S2）
-4. `02-cri-shim-agent.md`
-5. `04-network-tcfilter-tap.md`
-6. `07-production-agent-design.md` + 更新 S6
+3. **`09-code-read-protocol` R01→R03→R04**（概念+源码）
+4. `01-isolation-and-cgroup.md`（接 FZ5 / S2）
+5. `02-cri-shim-agent.md` + R05–R08
+6. `04-network-tcfilter-tap.md`
+7. `07-production-agent-design.md` + 更新 S6
 
 ## 与 notes/ 互链
 

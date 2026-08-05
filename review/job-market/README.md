@@ -23,8 +23,14 @@
 
 `YYYY-MM-DD-scan.md`
 
-最近报告：**[2026-07-31-scan.md](2026-07-31-scan.md)**（全网多渠道·画像对齐；上轮 [2026-07-29](2026-07-29-scan.md) / 京东专项 [2026-07-27](2026-07-27-scan.md)）  
-轮次流程：**[2026-07-31-interview-rounds.md](2026-07-31-interview-rounds.md)**（字节/京东/小红书等社招几面·社区样本）
+最近报告：
+- **脉脉调度/容器后端 JD：** [2026-08-05-maimai-scheduling-jds.md](2026-08-05-maimai-scheduling-jds.md)
+- **JD 技能→训练缺口：** [2026-08-04-jd-skills-inventory.md](2026-08-04-jd-skills-inventory.md)
+- **现实核对（Boss/脉脉焦虑）：** [2026-08-04-market-reality-check.md](2026-08-04-market-reality-check.md)
+- **全网多渠道：** [2026-07-31-scan.md](2026-07-31-scan.md)  
+轮次流程：**[2026-07-31-interview-rounds.md](2026-07-31-interview-rounds.md)**
+
+> **训练权重（2026-08-04）：均衡**——不再「京东略加重」。
 
 ## 与训练主线的关系
 
