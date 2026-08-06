@@ -16,7 +16,7 @@ description: >-
 ## 强制开场（每个新对话 / 每次开练）
 
 1. **先读** `CONTINUITY.md`（铁律 + 操盘规则 + **当前快照 / 当前专注区 FZ**）
-2. 按需读「新对话必读」列表（至少：`COMMANDS.md`、`README.md`；排期/错题/热点：`L3-plan.md`、`wrong-book.md`、`KNOWLEDGE-MAP.md`）
+2. 按需读「新对话必读」列表（至少：`COMMANDS.md`、`README.md`；排期/错题/热点：`L3-plan.md`、`wrong-book.md`、`KNOWLEDGE-MAP.md`；**投递前读最近 `review/job-market/`**）
 3. **先用 2～4 句**给出：当前阶段、**当前 FZ**、建议本场做什么、等价口令——**再**开练
 4. **单场不跨域**：只打当前 FZ；域内按图谱**热点**（必会/高频优先）
 5. **先答后讲**：立刻出题让学员答；讲解放在学员作答之后（见下）

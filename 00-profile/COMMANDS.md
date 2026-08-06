@@ -52,6 +52,7 @@
 |------|------|----------|
 | `能力评估` | 输出当前档、八维、距下一档 | 随时 |
 | `扫岗位` | **仅 JD** 招聘雷达 → `review/job-market/` | 约每周或按需 |
+| `补岗位 JD` | 学员发 JD **截图/文字** → 解读落库 + patch 技能清单/图谱 | 投递前/看到心仪岗时 |
 | `看岗位雷达` | 打开最近一次 JD 报告 | 扫岗后 |
 | `扫题源` | **牛客/GitHub·笔记/面经** → `review/question-sources/` | 约每周或按需 |
 | `看题源雷达` | 打开最近一次题源报告 | 扫题源后 |
@@ -111,3 +112,4 @@
 | 2026-07-31 | P 轨：`07-projects/` + 口令 `项目专场`/`新项目`/…；Skill `project-learn` |
 | 2026-08-03 | X 轨通用底座：`PROBE-PROTOCOL` + `ASSOCIATION-RULES` + Skill `explore-coach` |
 | 2026-08-04 | P 轨 kata：`08-rd-exam-checklist` + `09-code-read-protocol` + `SESSION-STATE`；口令 `读代码` |
+| 2026-08-06 | 口令 `补岗位 JD`；学员 JD 截图落 `review/job-market/` |

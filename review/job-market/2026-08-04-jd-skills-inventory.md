@@ -63,3 +63,19 @@
 | 混部/QoS（岗 B 核心） | FZ5 不变，合面加压 |
 | Koordinator/Volcano/Kruise | 薄册定位 |
 | Go | 仍 FZ3/4；投调度研发可申请提前 |
+
+## 7. 补丁（2026-08-06 学员 6 岗 JD 截图）
+
+详见 [`2026-08-06-user-jd-batch-scan.md`](2026-08-06-user-jd-batch-scan.md)。
+
+| 上调/确认 | 动作 |
+|-----------|------|
+| containerd/CRI/二次开发（#1/#5/#6） | **P0**：Q21 + kata R01–R04 |
+| Operator/CRD（#5/#6） | Q13 加深；补 Operator demo 或设计 |
+| CNI（#2/#3/#4/#6 共 4 岗） | Q15 保持；**P1**：kata R06 + 04-network 章 |
+| 可观测/Prometheus（#3/#5） | S6 故事卡；R04/R08 |
+| Kata/RuntimeClass（#1/#5/#6 隐含 runtime 栈） | 08-checklist + P 轨 |
+| CI/CD（#3/#5） | 观察维 O8；不抢 FZ1 |
+| eBPF/DPDK（仅 #4） | 观察维；投网络岗再开 N 轨 |
+| Serverless/ACS（#6） | 观察维 O9 |
+| 主投方向 | 研发 #1/#5/#6；运维 #2/#3 单独叙事 |

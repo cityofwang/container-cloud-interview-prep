@@ -23,7 +23,16 @@
 
 `YYYY-MM-DD-scan.md`
 
+## 学员投递 JD（截图/文字）
+
+学员发 JD 截图或粘贴文字 → 口令 **`补岗位 JD`**（或人话「这是我找到的岗」）→ 助手解读并写入：
+
+`YYYY-MM-DD-user-jd-*.md`
+
+并 patch `jd-skills-inventory.md` + `KNOWLEDGE-MAP.md`（经确认后 `按报告补题`）。
+
 最近报告：
+- **学员 6 岗 JD 批次：** [2026-08-06-user-jd-batch-scan.md](2026-08-06-user-jd-batch-scan.md)
 - **脉脉调度/容器后端 JD：** [2026-08-05-maimai-scheduling-jds.md](2026-08-05-maimai-scheduling-jds.md)
 - **JD 技能→训练缺口：** [2026-08-04-jd-skills-inventory.md](2026-08-04-jd-skills-inventory.md)
 - **现实核对（Boss/脉脉焦虑）：** [2026-08-04-market-reality-check.md](2026-08-04-market-reality-check.md)

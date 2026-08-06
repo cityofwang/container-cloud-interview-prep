@@ -12,7 +12,7 @@
 
 **P 轨挂钩列：** `P:<slug>/<章节或 K#>` — 见 [`07-projects/`](../07-projects/README.md)
 
-热点版本：2026-08-05（题源全网扫 + 脉脉调度 JD）
+热点版本：2026-08-06（+ 学员 6 岗 JD 批次，见 `review/job-market/2026-08-06-user-jd-batch-scan.md`）
 
 ## A 主图谱（目标岗）
 
@@ -31,7 +31,7 @@
 | 容器/K8s 基础 | C1 | Scheduler：Filter/Score/抢占 | 高频 | 调度混部 | 核心 | 未测 | R1-Q23；[笔记](../notes/A-target/k8s-scheduler-filter-score-preempt.md)·脉脉08-05 |
 | 容器/K8s 基础 | C1 | 抢占 vs 驱逐 vs QoS | 高频 | 调度混部 | 核心 | 未测 | R1-Q24；[笔记](../notes/A-target/k8s-preempt-evict-qos.md)·题源08-05 |
 | 容器/K8s 基础 | C1 | requests 与调度 / 超卖隔离 | 高频 | 调度混部 | 重要 | 未测 | R1-Q25；[笔记](../notes/A-target/k8s-requests-scheduling-oversell.md)·题源08-05 |
-| 容器/K8s 基础 | C1 | CNI 现象级 | 常考 | 排障路径 | 重要 | 会 | R1-Q15 · P:kata/K10（未写章） |
+| 容器/K8s 基础 | C1 | CNI 现象级 | 高频 | 排障路径 | 重要 | 会 | R1-Q15 · P:kata/K10/R06（6 岗 4 提及） |
 | 容器/K8s 基础 | C1 | 控制面边界 / 组件职责 | 高频 | 一面对象 | 核心 | 半会 | R1-Q16；[笔记](../notes/A-target/k8s-control-plane-boundary.md) |
 | 容器/K8s 基础 | C1 | Docker/namespace·cgroup 隔离 | 高频 | 一面对象 | 核心 | 半会 | R1-Q01 · P:kata/K01 |
 | 容器/K8s 基础 | C1 | CRI / containerd / runc / Kata·RuntimeClass | 高频 | 一面对象 | 核心 | 未测 | R1-Q21；[笔记](../notes/A-target/k8s-cri-containerd-runc-kata.md) · P:kata |
@@ -59,6 +59,9 @@
 | 流程熟练度 | C1 | Pod 创建等关键路径 | 必会 | 一面对象 | 核心 | 未测 | `PROCESS-FLOWS.md`；R1-Q17 |
 | （观察） | — | etcd 压力/HA 现象 + 与 apiserver 关系 | 高频 | 合面综合 | 重要 | 未测 | [笔记](../notes/A-target/etcd-enough-for-interview.md)·脉脉调度 JD |
 | （观察） | — | Koordinator / Volcano / OpenKruise 定位 | 加分 | 调度混部 | 可后置 | — | [薄册](../notes/A-target/cloud-native-sched-ecosystem.md) |
+| （观察） | — | CI/CD 流水线（Jenkins/GitLab/ArgoCD/Harbor） | 常考 | 云原生Go | 可后置 | 未测 | O8 · JD #3/#5 |
+| （观察） | — | Serverless / RuntimeClass 密度与成本 | 加分 | 一面对象 | 可后置 | — | O9 · JD #6 阿里 ACS |
+| （观察） | — | CNI 数据面（eBPF/DPDK/VxLAN） | 加分 | 排障路径 | 可后置 | — | 仅投容器网络岗 JD #4 |
 | （观察） | — | Mesh / 多集群 | 冷门 | 合面综合 | 可后置 | — | 观察维 O4 |
 | （观察） | — | etcd Raft / 脑裂深挖 | 加分 | 合面综合 | 可后置 | — | 有社区向 JD 再加压 |
 

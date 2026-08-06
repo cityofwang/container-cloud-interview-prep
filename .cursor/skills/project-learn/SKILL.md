@@ -16,6 +16,7 @@ description: >-
 
 1. 读 `07-projects/README.md` + 目标项目 `PROJECT.md` + `KNOWLEDGE-INDEX.md`
 2. **读代码模式**（口令含 `读代码`）：再读 `<slug>/SESSION-STATE.md` + `09-code-read-protocol.md`；本地 clone 路径见 `PROJECT.md` / `sources.md`
+3. **JD 对齐**（可选）：读最近 `review/job-market/` + `jd-skills-inventory.md`，场末可标注本场覆盖了哪些 JD 技能词
 3. 若学员指定章节/轨道 → 读该章或 Rxx；否则按 SESSION-STATE **下一轨道** 或 INDEX **下一未会章**
 4. **2～4 句**：项目状态、建议本章/轨道、等价口令
 5. **先答后讲**：自测/探测题 → 再讲解/再 `Read` 源码（同 interview-coach 铁律）

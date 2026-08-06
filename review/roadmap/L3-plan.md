@@ -3,7 +3,7 @@
 量尺与改期规则：`docs/superpowers/specs/2026-07-23-l3-roadmap-and-notes-design.md`。  
 专注区 / 热点：`docs/superpowers/specs/2026-07-27-focus-zone-and-hotspots-design.md`。  
 知识索引：`00-profile/KNOWLEDGE-MAP.md`。  
-技能对齐：`review/job-market/2026-08-04-jd-skills-inventory.md` · 脉脉调度帖 `2026-08-05-maimai-scheduling-jds.md`。
+技能对齐：`review/job-market/2026-08-04-jd-skills-inventory.md` · 脉脉 `2026-08-05-maimai-scheduling-jds.md` · **学员 6 岗 JD `2026-08-06-user-jd-batch-scan.md`**。
 
 ## 目标
 
