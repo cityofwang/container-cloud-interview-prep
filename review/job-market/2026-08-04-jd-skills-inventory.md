@@ -64,9 +64,9 @@
 | Koordinator/Volcano/Kruise | 薄册定位 |
 | Go | 仍 FZ3/4；投调度研发可申请提前 |
 
-## 7. 补丁（2026-08-06 学员 6 岗 JD 截图）
+## 7. 补丁（2026-08-06 猎聘 6 岗 JD）
 
-详见 [`2026-08-06-user-jd-batch-scan.md`](2026-08-06-user-jd-batch-scan.md)。
+详见 [`2026-08-06-user-jd-batch-scan.md`](2026-08-06-user-jd-batch-scan.md)（渠道：**猎聘**）。
 
 | 上调/确认 | 动作 |
 |-----------|------|
