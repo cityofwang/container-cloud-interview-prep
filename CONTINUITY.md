@@ -143,7 +143,14 @@
 | 题源雷达 | **2026-08-05** 全网扫（调度/运行时）；网络专题见 08-04 |
 | 投递口径 | **多厂均衡**（已取消京东加重） |
 | 深度约定 | `00-profile/ROLE-DEPTH.md`（先问会不会再讲；不停留名词） |
-| 下一步首选 | **新 Chat：** 先确认「DNAT 后去程/回程 + CNI 边界」口头过关 → 跨主机/VTEP 或 **Q23** → Q24/Q25 |
+| 下一步首选 | **Kata P 轨：** `项目专场 kata 读代码 R04`（Stats 全链源码带读）· **FZ1：** DNAT/CNI 边界口头确认 → Q23 |
+
+### 续聊交接（2026-08-06 Kata context 切分）
+
+- **P 轨进度：** R01 概念+锚点 ✅；R02/R03/R05/R07/R08 半会；**下场 R04** Stats 源码链（`service.go Stats` → `kata_agent.statsContainer`）。
+- **权威沉淀：** `07-projects/kata-containers/SESSION-STATE.md`（25 条对话前提 + 源码锚点）。
+- **关键纠正：** K8s VM 内存按 CreateContainer 逐步热插；CLH 只扩不缩；3.0.0 ≠ architecture 3.0 生产路径；监控走 containerd/CRI 非直连 vsock。
+- **源码仓：** `~/wangfanDoc/GoDemo/src/kata-containers` 有本地学习注释，**勿 push upstream**。
 
 ### 续聊交接（2026-08-05 context 切分）
 
