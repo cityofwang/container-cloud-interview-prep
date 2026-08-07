@@ -48,7 +48,8 @@
 | R07 | Host cgroup | K13,K14,K21 | 半会 |
 | R08 | monitor | K12,K22 | 半会 |
 
-**口令：** `项目专场 kata 读代码 续` · 必考清单：`08-rd-exam-checklist.md`
+**口令：** `项目专场 kata 读代码 续` · **跨 Chat 唤醒：** `CONTINUITY.md`  
+**全局地图：** `KNOWLEDGE-MAP.md`（28 域）· **排期：** `LEARNING-8W.md` · 必考：`08-rd-exam-checklist.md`
 
 ## 建议学习顺序
 

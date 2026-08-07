@@ -3,8 +3,8 @@
 > **新 Chat 第一件事：** 助手读此文件 + `09-code-read-protocol.md`，再 `SESSION-STATE` 里的「下次口令」开场。  
 > **学员只需说：** `项目专场 kata 读代码 续`
 
-最后更新：**2026-08-06**  
-学习模式：**代码导读 + 概念**  
+最后更新：**2026-08-07**  
+学习模式：**代码导读 + 概念 + 全仓知识地图**  
 源码路径：`~/wangfanDoc/GoDemo/src/kata-containers`（锚点 **3.0.0**）
 
 ---
@@ -14,9 +14,11 @@
 | 项 | 值 |
 |----|-----|
 | **当前轨道** | **R04**（Stats 全链 — 概念已讲，源码未系统带读） |
-| **Concept 章节** | `00-one-pager` ✅ · `03-observability` ✅ · Host cgroup / VM 内存（对话沉淀）✅ |
-| **上次结论** | K8s 下 VM 内存 **按 CreateContainer 逐步热插**；CLH **只扩不缩**；监控走 **containerd/CRI**，不直连 vsock |
+| **Concept 章节** | `00-one-pager` ✅ · `03-observability` ✅ · `domains/03-memory-cgroup` ✅ |
+| **全局地图** | `KNOWLEDGE-MAP.md`（28 域）· `LEARNING-8W.md` · `GAPS.md` |
+| **上次结论** | false 模式 pod limit vs overhead cur；default_memory 不热插；CLH+KVM EPT |
 | **下次口令** | `项目专场 kata 读代码 R04` |
+| **续聊入口** | **`CONTINUITY.md`**（跨 Chat 唤醒口令） |
 
 ---
 
@@ -80,7 +82,16 @@
 ### 项目方向
 
 24. **节点 Agent**：containerd Task.Stats/Update，RuntimeAdapter 分 runc/Kata；见 `03-observability.md`、`pitfalls.md` #8。
-25. **JD 技能对齐（2026-08-06）**：主投研发岗 #1/#5/#6 → containerd/CRI/Kata/Operator/可观测；详见 `review/job-market/2026-08-06-user-jd-batch-scan.md`。
+25. **JD 技能对齐（2026-08-06）**：主投研发岗 #1/#5/#6 → containerd/CRI/Kata/Operator/可观测；详见 `review/job-market/2026-08-06-user-jd-batch-scan.md`.
+
+### 内存 / cgroup / KVM（2026-08-07 全仓排期落盘）
+
+26. **pod limit** = Σ limit + RuntimeClass overhead（kubelet）；**不含** default_memory。
+27. **false**：pod cur ≈ vCPU；**overhead cur** ≈ CLH(default+Σlimit)+shim；overhead **无 limit**。
+28. **true**：全家桶受 pod limit；overhead 须 ≥ default_memory + 余量。
+29. **default_memory** 默认 2Gi；**不为基线单独热插**；基线过小 → sandbox/agent 启动失败或 Guest OOM。
+30. **CLH+KVM**：mmap+KVM region+EPT；GPA 连续 HPA 离散。
+31. **全仓 28 域**：见 `KNOWLEDGE-MAP.md`；8 周排期 `LEARNING-8W.md`。
 
 ---
 
@@ -114,3 +125,4 @@
 | 2026-08-04 | 初版：读代码协议 + 必考清单落仓；轨道全未开始 |
 | 2026-08-06 | 对齐学员 6 岗 JD；R04 对 #5/#6 可观测优先级上调 |
 | 2026-08-06 | **大段 context 沉淀**：R01✅、R02/R03/R05/R07/R08 半会；VM 内存/CLH/static/sandbox-memory/3.0 架构/监控路径写回 |
+| 2026-08-07 | 全仓 KNOWLEDGE-MAP 28 域 + LEARNING-8W + domains + CONTINUITY 续聊 + MOCK-40 |
