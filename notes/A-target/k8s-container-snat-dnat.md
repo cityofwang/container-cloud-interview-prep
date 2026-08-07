@@ -85,12 +85,27 @@
    - Calico **BGP 模式**：节点间按 **三层路由** 把 PodIP 路由过去（常见说法：路由可达）。  
    - Calico **VXLAN 模式**：包被 **封装** 成外层 IP 包在节点间走；是 overlay，面试别说成「纯二层透传」。  
    - 一面够用句：**跨节点靠 CNI 做 PodIP 可达（路由或封装），不是 kube-proxy 选人。**
+   - **学员状态（2026-08-07）：** Calico **尚未系统学过**（自报小白）。当前只要求背住上两句对比；**专场待开**（见下方待讲清单），勿默认已懂 BGP/IPAM/Felix 细节。
 
 2. **K8s Pod 路径 ≠ Docker 默认 docker0 网桥故事**  
    - Docker bridge 细路径见 `docker-bridge-packet-path.md`（学 SNAT 很好用）。  
    - 托管 K8s + Calico：常见是 **Pod eth0↔veth + 主机路由/CNI**，不要默认背「一定先过 docker0」。
 
 3. **回程术语**：是 **conntrack**（连接跟踪）对称还原，不是再配一条 DNAT；拼写别写成 contrunc。
+
+### 待讲清单 · Calico 专场（未开）
+
+> 口令意向：`知识点专场 Calico`（开场仍先探测「会不会」再讲）
+
+| 优先级 | 要讲清什么 | 一面深度 |
+|--------|------------|----------|
+| P0 | CNI 接口在 Pod 创建时干什么（IPAM + 插网卡）vs kube-proxy | 必会 |
+| P0 | BGP vs VXLAN：为何需要、包长什么样（图）、何时选谁 | 必会对比 |
+| P1 | 同节点 vs 跨节点路径差在哪 | 必会 |
+| P1 | NetworkPolicy 和「转发」不是一回事（点到即可） | 够用 |
+| P2 | Felix / BGP speaker / IPAM 组件名（能对上现象即可） | 加压层 |
+
+**排期建议：** FZ1 主线先走完 **Q23→半会**；Calico 专场插在网络回炉或 FZ2 前，避免本场堆成大课。
 
 ---
 
