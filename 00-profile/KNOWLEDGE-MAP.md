@@ -28,7 +28,7 @@
 | 容器/K8s 基础 | C1 | Pod 创建端到端 | 必会 | 一面对象·合面综合 | 核心 | 半会 | R1-Q17；`PROCESS-FLOWS.md` |
 | 容器/K8s 基础 | C1 | List-Watch / Informer 直觉 | 高频 | 云原生Go | 重要 | 半会 | R1-Q13；[笔记](../notes/A-target/k8s-list-watch-informer.md) |
 | 容器/K8s 基础 | C1 | 污点/亲和 / 调度过滤打分 | 高频 | 调度混部 | 重要 | 半会 | R1-Q14；[笔记](../notes/A-target/k8s-taint-affinity.md) |
-| 容器/K8s 基础 | C1 | Scheduler：Filter/Score/抢占 | 高频 | 调度混部 | 核心 | 未测 | R1-Q23；[笔记](../notes/A-target/k8s-scheduler-filter-score-preempt.md)·脉脉08-05 |
+| 容器/K8s 基础 | C1 | Scheduler：Filter/Score/抢占 | 高频 | 调度混部 | 核心 | 半会 | R1-Q23；08-07 开讲（有打分扩展经历）；[笔记](../notes/A-target/k8s-scheduler-filter-score-preempt.md) |
 | 容器/K8s 基础 | C1 | 抢占 vs 驱逐 vs QoS | 高频 | 调度混部 | 核心 | 未测 | R1-Q24；[笔记](../notes/A-target/k8s-preempt-evict-qos.md)·题源08-05 |
 | 容器/K8s 基础 | C1 | requests 与调度 / 超卖隔离 | 高频 | 调度混部 | 重要 | 未测 | R1-Q25；[笔记](../notes/A-target/k8s-requests-scheduling-oversell.md)·题源08-05 |
 | 容器/K8s 基础 | C1 | CNI 现象级 | 高频 | 排障路径 | 重要 | 半会 | R1-Q15 · **Calico 专场待开**（08-07 自报小白）· P:kata/K10/R06 |
