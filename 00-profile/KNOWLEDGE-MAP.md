@@ -31,13 +31,13 @@
 | 容器/K8s 基础 | C1 | Scheduler：Filter/Score/抢占 | 高频 | 调度混部 | 核心 | 未测 | R1-Q23；[笔记](../notes/A-target/k8s-scheduler-filter-score-preempt.md)·脉脉08-05 |
 | 容器/K8s 基础 | C1 | 抢占 vs 驱逐 vs QoS | 高频 | 调度混部 | 核心 | 未测 | R1-Q24；[笔记](../notes/A-target/k8s-preempt-evict-qos.md)·题源08-05 |
 | 容器/K8s 基础 | C1 | requests 与调度 / 超卖隔离 | 高频 | 调度混部 | 重要 | 未测 | R1-Q25；[笔记](../notes/A-target/k8s-requests-scheduling-oversell.md)·题源08-05 |
-| 容器/K8s 基础 | C1 | CNI 现象级 | 高频 | 排障路径 | 重要 | 会 | R1-Q15 · P:kata/K10/R06（6 岗 4 提及） |
+| 容器/K8s 基础 | C1 | CNI 现象级 | 高频 | 排障路径 | 重要 | 半会 | R1-Q15 · **Calico 专场待开**（08-07 自报小白）· P:kata/K10/R06 |
 | 容器/K8s 基础 | C1 | 控制面边界 / 组件职责 | 高频 | 一面对象 | 核心 | 半会 | R1-Q16；[笔记](../notes/A-target/k8s-control-plane-boundary.md) |
 | 容器/K8s 基础 | C1 | Docker/namespace·cgroup 隔离 | 高频 | 一面对象 | 核心 | 半会 | R1-Q01 · P:kata/K01 |
 | 容器/K8s 基础 | C1 | CRI / containerd / runc / Kata·RuntimeClass | 高频 | 一面对象 | 核心 | 未测 | R1-Q21；[笔记](../notes/A-target/k8s-cri-containerd-runc-kata.md) · P:kata |
 | 容器/K8s 基础 | C1 | Device Plugin / GPU 扩展资源（现象） | 常考 | 调度混部 | 重要 | 未测 | R1-Q22；[笔记](../notes/A-target/k8s-device-plugin-gpu.md) |
 | 容器/K8s 基础 | C1 | kube-proxy：iptables vs ipvs | 常考 | 一面对象 | 重要 | 半会 | R1-Q18；[笔记](../notes/A-target/k8s-kube-proxy-iptables-ipvs.md) |
-| 容器/K8s 基础 | C1 | 出网 SNAT / Service DNAT | 高频 | 排障路径 | 重要 | 半会 | R1-Q20；[笔记](../notes/A-target/k8s-container-snat-dnat.md)·运维开发同构 |
+| 容器/K8s 基础 | C1 | 出网 SNAT / Service DNAT | 高频 | 排障路径 | 重要 | 半会↑ | R1-Q20；08-07 口述过关（纠偏二层）；[笔记](../notes/A-target/k8s-container-snat-dnat.md) |
 | 排障与可观测 | C2 | CrashLoop/OOM/NotReady 路径 | 必会 | 排障路径 | 核心 | 半会 | R1-Q09/Q19；[笔记](../notes/A-target/k8s-troubleshoot-crashloop-oom-notready.md) |
 | 排障与可观测 | C2 | 监控告警 / 事件挂钩生产 | 高频 | 排障路径 | 核心 | 会（经历） | R1-Q10；待深挖口述 · P:kata/03-observability |
 | 混部/cgroup/CSI | C3 | 混部干扰与隔离、cgroup | 高频 | 调度混部 | 核心 | 未测（经历强） | 故事卡 · P:kata/K13（未写章） |
