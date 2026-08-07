@@ -1,6 +1,6 @@
 # 容器出网 SNAT 与 Service DNAT
 
-- 维：C1｜题：R1-Q20（挂钩 Q11/Q18）｜状态：补题已落（2026-07-31）；网络特训续（2026-08-04/05）
+- 维：C1｜题：R1-Q20（挂钩 Q11/Q18）｜状态：补题已落（2026-07-31）；**口头过关 2026-08-07**（纠偏：跨节点≠二层透传）
 - 题源：运维开发面经同构（Docker 网络 → SNAT/DNAT → Service；多厂通用）
 
 > 一面总句：**出网常改源（SNAT）保证回得来；访问 Service 常改目的（DNAT）打到 Pod。**  
@@ -79,6 +79,19 @@
 | A 直接访问 B 的 PodIP（不经 Service） | **几乎全程 CNI**（+ 本机） |
 | Endpoints 为空 | **先 Ready / 端口 / selector**，不是先查 Calico |
 
+### 易错钉死（2026-08-07 口述纠偏）
+
+1. **跨节点 ≠「二层传递」**  
+   - Calico **BGP 模式**：节点间按 **三层路由** 把 PodIP 路由过去（常见说法：路由可达）。  
+   - Calico **VXLAN 模式**：包被 **封装** 成外层 IP 包在节点间走；是 overlay，面试别说成「纯二层透传」。  
+   - 一面够用句：**跨节点靠 CNI 做 PodIP 可达（路由或封装），不是 kube-proxy 选人。**
+
+2. **K8s Pod 路径 ≠ Docker 默认 docker0 网桥故事**  
+   - Docker bridge 细路径见 `docker-bridge-packet-path.md`（学 SNAT 很好用）。  
+   - 托管 K8s + Calico：常见是 **Pod eth0↔veth + 主机路由/CNI**，不要默认背「一定先过 docker0」。
+
+3. **回程术语**：是 **conntrack**（连接跟踪）对称还原，不是再配一条 DNAT；拼写别写成 contrunc。
+
 ---
 
 ## 3. 排障顺序（和 Q11 一致）
@@ -97,4 +110,4 @@
 > 出网要有去有回，节点侧常 SNAT；Service 用 ClusterIP，转发时 DNAT 到 Pod。  
 > 不通先看有没有后端，再看规则装没装上。  
 > DNAT 后目的是 PodIP；送到 Pod 靠路由+CNI；回程多回客户端 PodIP，靠 conntrack 对齐会话。  
-> **VIP 选人 ≠ CNI；PodIP 互达才是 CNI。**
+> **VIP 选人 ≠ CNI；PodIP 互达才是 CNI。跨节点用路由或封装，别说成二层透传。**
