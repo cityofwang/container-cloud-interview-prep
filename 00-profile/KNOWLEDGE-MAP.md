@@ -30,7 +30,7 @@
 | 容器/K8s 基础 | C1 | 污点/亲和 / 调度过滤打分 | 高频 | 调度混部 | 重要 | 半会 | R1-Q14；[笔记](../notes/A-target/k8s-taint-affinity.md) |
 | 容器/K8s 基础 | C1 | Scheduler：Filter/Score/抢占 | 高频 | 调度混部 | 核心 | 半会 | R1-Q23；08-07 开讲（有打分扩展经历）；[笔记](../notes/A-target/k8s-scheduler-filter-score-preempt.md) |
 | 容器/K8s 基础 | C1 | 抢占 vs 驱逐 vs QoS | 高频 | 调度混部 | 核心 | 半会 | R1-Q24；08-09 自测过；[笔记](../notes/A-target/k8s-preempt-evict-qos.md) |
-| 容器/K8s 基础 | C1 | requests 与调度 / 超卖隔离 | 高频 | 调度混部 | 重要 | 未测 | R1-Q25；[笔记](../notes/A-target/k8s-requests-scheduling-oversell.md)·题源08-05 |
+| 容器/K8s 基础 | C1 | requests 与调度 / 超卖隔离 | 高频 | 调度混部 | 重要 | 半会 | R1-Q25；08-09 口述+纠「隔离」词义；[笔记](../notes/A-target/k8s-requests-scheduling-oversell.md) |
 | 容器/K8s 基础 | C1 | CNI 现象级 | 高频 | 排障路径 | 重要 | 半会 | R1-Q15 · **Calico 专场待开**（08-07 自报小白）· P:kata/K10/R06 |
 | 容器/K8s 基础 | C1 | 控制面边界 / 组件职责 | 高频 | 一面对象 | 核心 | 半会 | R1-Q16；[笔记](../notes/A-target/k8s-control-plane-boundary.md) |
 | 容器/K8s 基础 | C1 | Docker/namespace·cgroup 隔离 | 高频 | 一面对象 | 核心 | 半会 | R1-Q01 · P:kata/K01 |
