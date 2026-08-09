@@ -1,6 +1,7 @@
 # 抢占 · 驱逐 · QoS（易混三件套）
 
 - 维：C1｜题：R1-Q24｜挂钩：Q06、Q23、FZ5 混部｜题源：2026-08-05 面经/调度 JD
+- 状态：**2026-08-09 开讲**（学员自报「三样都不会」→ 先建立对比表）
 
 > 总句：**QoS 描述 Pod 资源档位；抢占是调度器为高优 Pod 腾节点；驱逐是 kubelet 在节点压力下踢 Pod。** 三者都能「让 Pod 消失/让位」，但决策者和时机不同。
 
@@ -15,7 +16,20 @@
 | **干什么** | Guaranteed / Burstable / BestEffort | 可能删低优 Pod 给高优让路 | 按信号杀/驱逐 Pod 保节点 |
 | **常见误会** | 当成「优先级数字」 | 当成 OOM | 当成调度器干的 |
 
-优先级（PriorityClass）常和**抢占**一起讲；QoS **不是** PriorityClass。
+### PriorityClass 挂哪边？
+
+| 概念 | 是什么 |
+|------|--------|
+| **PriorityClass** | 整数优先级；调度排序/抢占时「谁更重要」 |
+| **QoS** | 看有没有配齐 requests/limits → 三档；**不是** PriorityClass |
+| 关系 | 抢占看 **优先级**；节点压力驱逐常参考 **QoS 档 + 优先级** 等（一面说清「两套轴」即可） |
+
+### 排障分流（必会）
+
+```text
+Pending / unschedulable → 先调度侧：资源、污点、亲和、优先级/抢占
+Running 后节点告警/被踢 → 先节点侧：驱逐、OOM、磁盘压力
+```
 
 ---
 
@@ -28,6 +42,6 @@
 
 ## 3. 30 秒背板
 
-> QoS 看 requests/limits 档位；抢占是调度器为高优先级腾地方；驱逐是 kubelet 看节点压力。排障先问：是 Pending 调度失败，还是 Running 节点告警后被踢。
+> QoS 看 requests/limits 档位，不是优先级数字；抢占是调度器为高优腾地方；驱逐是 kubelet 看节点压力。排障先问：Pending 调度失败，还是 Running 后被踢。
 
 自测：Pod 一直 Pending 显示 unschedulable，更可能先查抢占/资源/污点，还是查驱逐？
